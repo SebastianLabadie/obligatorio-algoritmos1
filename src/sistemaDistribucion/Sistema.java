@@ -143,8 +143,8 @@ public class Sistema {
        p.ver(r.resultado, Retorno.Resultado.OK, "o.altaDeStockDeProducto(\"1234\",1,1,3); " + r.valorString); 
        
        
-       r = o.altaDeStockDeProducto("1234",1,1,6);
-       p.ver(r.resultado, Retorno.Resultado.OK, "o.altaDeStockDeProducto(\"1234\",1,1,6); " + r.valorString); 
+       r = o.altaDeStockDeProducto("1234",1,1,8);
+       p.ver(r.resultado, Retorno.Resultado.OK, "o.altaDeStockDeProducto(\"1234\",1,1,8); " + r.valorString); 
     }
     
 }
