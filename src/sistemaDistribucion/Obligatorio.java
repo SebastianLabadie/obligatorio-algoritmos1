@@ -178,12 +178,8 @@ public class Obligatorio implements IObligatorio {
         
         //ver si hay ordenes en espera para ese producto y generar envio
         nodoEnvio ordenEspera = prod.ce.fondo();
-        if(ordenEspera != null){
-            //
-            nodoCaja caja = prod.pc.cima();
-            manejoCajasREC(caja, ordenEspera.getCantidadUnidades(), ordenEspera.getCamion(), ordenEspera.getCliente(), ordenEspera.getProducto());
-        }
-        
+        nodoCaja caja = prod.pc.cima();
+        manejoOrdenREC(ordenEspera,caja);
         
         System.out.println("2- prod.stockTotal: "+ prod.stockTotal);
         if(prod.pc.cima() != null){
@@ -196,6 +192,21 @@ public class Obligatorio implements IObligatorio {
         
         return ret;
     }
+    
+    public void manejoOrdenREC(nodoEnvio ordenEspera,  nodoCaja caja){
+        if(ordenEspera != null && caja != null){
+            nodoEnvio ordenSiguiente = ordenEspera.getSiguiente();
+            manejoCajasREC(caja, ordenEspera.getCantidadUnidades(), ordenEspera.getCamion(), ordenEspera.getCliente(), ordenEspera.getProducto(),true);
+            
+            //si la cantidad de unidades de la caja es mayor a cero 
+                //llamar recursivo
+                if(ordenEspera.getSiguiente() == null ){
+                       manejoOrdenREC(ordenSiguiente,caja);
+                }
+        }
+    }
+    
+    
 
     @Override
     public Retorno retiroDeProducto(String matriculaCam, String rutCliente, int codProducto, int cant) {
@@ -233,7 +244,7 @@ public class Obligatorio implements IObligatorio {
         
         //buscar cantidad en ultima caja
         nodoCaja caja = producto.pc.cima();
-        manejoCajasREC(caja, cant, camion, cliente, producto);
+        manejoCajasREC(caja, cant, camion, cliente, producto,false);
 
         System.out.println("2- prod.stockTotal: "+ producto.stockTotal);
         if(producto.pc.cima() != null){
@@ -247,37 +258,67 @@ public class Obligatorio implements IObligatorio {
         return ret;
     }
     
-    public void manejoCajasREC(nodoCaja caja,int cant, nodoCamion camion, nodoCliente cliente, nodoProducto producto){
-        int auxCant = cant;
-        if (caja.cantUnidades > cant){
-             le.agregarFinal(camion, cliente, producto, cant);
-             caja.setCantUnidades(caja.cantUnidades - cant);
-             producto.stockTotal -= cant; 
+    //caja puede ser nulla
+    public void manejoCajasREC(nodoCaja caja,int cant, nodoCamion camion, nodoCliente cliente, nodoProducto producto, boolean llamadaOE){
+        
+        //si no hay stock o la caja es nula directamente se crea una orden de retiro en espera
+        if(producto.stockTotal == 0 || caja == null){
+            if(!llamadaOE){
+             producto.ce.encolar(camion, cliente, producto, cant);
+            }
+            return;
         }
         
-        if (caja.cantUnidades == cant){
+        int auxCant = cant;
+        int cajaUnidades = caja.getCantUnidades();
+        if (cajaUnidades > cant){
+             le.agregarFinal(camion, cliente, producto, cant);
+             caja.setCantUnidades(cajaUnidades - cant);
+             producto.stockTotal -= cant; 
+             
+             if(llamadaOE){
+                producto.ce.desencolar();
+            }
+             
+        }
+        
+        if (cajaUnidades == cant){
              le.agregarFinal(camion, cliente, producto, cant);
              producto.pc.desapilar();
              producto.stockTotal -= cant; 
              this.capacidadOcupada -= 1;
+             
+             if(llamadaOE){
+                producto.ce.desencolar();
+            }
         }
-        if (caja.cantUnidades < cant){
+        if (cajaUnidades < cant){
              //le.agregarFinal(camion, cliente, producto, cant);
-             auxCant-=caja.cantUnidades; 
+             auxCant-=cajaUnidades; 
              nodoCaja cajaSiguiente = producto.pc.cima().getSiguiente();
              producto.pc.desapilar();
-             producto.stockTotal -= caja.cantUnidades; 
+             producto.stockTotal -= cajaUnidades; 
              this.capacidadOcupada -= 1;
              
              //si hay mas cajas
              if(cajaSiguiente != null){ 
-                manejoCajasREC(cajaSiguiente, auxCant, camion, cliente, producto);
+                manejoCajasREC(cajaSiguiente, auxCant, camion, cliente, producto,llamadaOE);
              }else{
                 //no hay mas cajas genero una orden de espera, por la cantidad actual
                 //System.out.println("sistemaDistribucion.Obligatorio.manejoCajasREC()");
-                producto.ce.encolar(camion, cliente, producto, auxCant);
+                if(llamadaOE){
+                    //producto.ce.desencolar();
+                    producto.ce.fondo().setCantidadUnidades(auxCant);
+                }else{
+                    producto.ce.encolar(camion, cliente, producto, auxCant);
+                }
+                
+                
+                
              }
         }
+        
+        
           
     }
     

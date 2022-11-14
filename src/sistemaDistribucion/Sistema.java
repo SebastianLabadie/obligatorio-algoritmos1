@@ -130,6 +130,21 @@ public class Sistema {
        r = o.altaDeStockDeProducto("1234",1,1,10);
        p.ver(r.resultado, Retorno.Resultado.OK, "o.altaDeStockDeProducto(\"1234\",1,1,10); " + r.valorString); 
        
+       r = o.retiroDeProducto("1234","123",1, 7);
+       p.ver(r.resultado, Retorno.Resultado.OK, "o.retiroDeProducto(\"1234\",\"123\",1, 7); " + r.valorString);
+       
+       r = o.retiroDeProducto("1234","123",1, 5);
+       p.ver(r.resultado, Retorno.Resultado.OK, "o.retiroDeProducto(\"1234\",\"123\",1, 5); " + r.valorString);
+       
+       r = o.retiroDeProducto("1234","123",1, 5);
+       p.ver(r.resultado, Retorno.Resultado.OK, "o.retiroDeProducto(\"1234\",\"123\",1, 5); " + r.valorString);
+       
+       r = o.altaDeStockDeProducto("1234",1,1,3);
+       p.ver(r.resultado, Retorno.Resultado.OK, "o.altaDeStockDeProducto(\"1234\",1,1,3); " + r.valorString); 
+       
+       
+       r = o.altaDeStockDeProducto("1234",1,1,6);
+       p.ver(r.resultado, Retorno.Resultado.OK, "o.altaDeStockDeProducto(\"1234\",1,1,6); " + r.valorString); 
     }
     
 }
