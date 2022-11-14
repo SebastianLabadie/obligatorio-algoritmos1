@@ -170,11 +170,11 @@ public class Obligatorio implements IObligatorio {
         prod.pc.apilar(nroCaja, cantUnidades);
         this.capacidadOcupada +=1 ;
         
-        System.out.println(" prod.stockTotal: "+ prod.stockTotal);
-       if(prod.pc.cima() != null){
-         System.out.println(" prod.apilar: "+ prod.pc.cima().getCantUnidades());
+       System.out.println("1- prod.stockTotal: "+ prod.stockTotal);
+        if(prod.pc.cima() != null){
+         System.out.println("1- prod.apilar: "+ prod.pc.cima().getCantUnidades());
         }
-        System.out.println(" prod.capacidadOcupada: "+ this.capacidadOcupada);
+        System.out.println("1- prod.capacidadOcupada: "+ this.capacidadOcupada);
         
         //ver si hay ordenes en espera para ese producto y generar envio
         nodoEnvio ordenEspera = prod.ce.fondo();
@@ -184,6 +184,12 @@ public class Obligatorio implements IObligatorio {
             manejoCajasREC(caja, ordenEspera.getCantidadUnidades(), ordenEspera.getCamion(), ordenEspera.getCliente(), ordenEspera.getProducto());
         }
         
+        
+        System.out.println("2- prod.stockTotal: "+ prod.stockTotal);
+        if(prod.pc.cima() != null){
+         System.out.println("2- prod.apilar: "+ prod.pc.cima().getCantUnidades());
+        }
+        System.out.println("2- prod.capacidadOcupada: "+ this.capacidadOcupada);
         
         ret.resultado = Retorno.Resultado.OK;  
         ret.valorString = "Caja despachada correctamente";
@@ -268,7 +274,8 @@ public class Obligatorio implements IObligatorio {
                 manejoCajasREC(cajaSiguiente, auxCant, camion, cliente, producto);
              }else{
                 //no hay mas cajas genero una orden de espera, por la cantidad actual
-                producto.ce.encolar(camion, cliente, producto, cant);
+                //System.out.println("sistemaDistribucion.Obligatorio.manejoCajasREC()");
+                producto.ce.encolar(camion, cliente, producto, auxCant);
              }
         }
           

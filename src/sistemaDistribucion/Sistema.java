@@ -100,7 +100,7 @@ public class Sistema {
        p.ver(r.resultado, Retorno.Resultado.ERROR_4, "o.altaDeStockDeProducto(\"1234\",1,1,0); " + r.valorString);
        
        r = o.altaDeStockDeProducto("1234",1,2,5);
-       p.ver(r.resultado, Retorno.Resultado.OK, "o.altaDeStockDeProducto(\"1234\",1,2,10); " + r.valorString);
+       p.ver(r.resultado, Retorno.Resultado.OK, "o.altaDeStockDeProducto(\"1234\",1,2,5); " + r.valorString);
        
        r = o.altaDeStockDeProducto("1234",1,3,10);
        p.ver(r.resultado, Retorno.Resultado.ERROR_5, "o.altaDeStockDeProducto(\"1234\",1,3,10); " + r.valorString);   
@@ -122,9 +122,9 @@ public class Sistema {
        p.ver(r.resultado, Retorno.Resultado.OK, "o.retiroDeProducto(\"1234\",\"123\",9999, 6); " + r.valorString);
        
        
-        System.out.println("sistemaDistribucion.Sistema.juegodeprueba()");
-       r = o.retiroDeProducto("1234","123",1, 10);
-       p.ver(r.resultado, Retorno.Resultado.OK, "o.retiroDeProducto(\"1234\",\"123\",9999, 10); " + r.valorString);
+       System.out.println("sistemaDistribucion.Sistema.juegodeprueba()");
+       r = o.retiroDeProducto("1234","123",1, 12);
+       p.ver(r.resultado, Retorno.Resultado.OK, "o.retiroDeProducto(\"1234\",\"123\",9999, 12); " + r.valorString);
        
        
        r = o.altaDeStockDeProducto("1234",1,1,10);
