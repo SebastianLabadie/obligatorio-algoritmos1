@@ -8,6 +8,7 @@ public class Obligatorio implements IObligatorio {
     LProducto lp;
     LCamion lcam;
     LEnvio le;
+    //PCaja pc;
     //Cola ce;
     
     
@@ -26,6 +27,7 @@ public class Obligatorio implements IObligatorio {
             this.lp = new LProducto();
             this.lcam = new LCamion();
             this.le = new LEnvio();
+            //this.pc = new PCaja(capacidadMax)
             this.capacidadCajas = capacidadMax;
             this.capacidadOcupada = 0;
             ret.resultado = Retorno.Resultado.OK;
@@ -105,8 +107,6 @@ public class Obligatorio implements IObligatorio {
     public Retorno eliminarCamion(String matricula) {
         Retorno ret = new Retorno(Retorno.Resultado.NO_IMPLEMENTADA);
 
-        
-        
         return ret;
     }
 
@@ -114,12 +114,12 @@ public class Obligatorio implements IObligatorio {
     public Retorno registrarProducto(String nombre, String descripcion) {
         Retorno ret = new Retorno(Retorno.Resultado.NO_IMPLEMENTADA);
         if (descripcion.isEmpty()) {
-            ret.resultado = Retorno.Resultado.ERROR_3;  
+            ret.resultado = Retorno.Resultado.ERROR_2;  
             ret.valorString = "Error descripcion vacia.";
             return ret;
         }
         if (lp.buscarelemento(nombre)) {
-            ret.resultado = Retorno.Resultado.ERROR_2;  
+            ret.resultado = Retorno.Resultado.ERROR_1;  
             ret.valorString = "Error ya existe un producto con el mismo nombre.";
         }else{
             lp.agregarFinal(nombre, descripcion);
@@ -149,8 +149,8 @@ public class Obligatorio implements IObligatorio {
             return ret;
         }
         
-        nodoProducto prod = lp.obtenerElemento(codigoProd);
-        if (prod.pc.buscarelemento(nroCaja)) { //problema las cajas van por numero general (creo)
+        
+        if (lp.validarExistenciaCaja(nroCaja)) { 
             ret.resultado = Retorno.Resultado.ERROR_4;  
             ret.valorString = "Error ya existe ese número de caja. ";
             return ret;
@@ -166,24 +166,25 @@ public class Obligatorio implements IObligatorio {
         //alta de stock
         //buscar producto => sumar stocktotal, agregar caja
             //sumar a capacidadOcupada de fabrica
-        prod.stockTotal += cantUnidades;
-        prod.pc.apilar(nroCaja, cantUnidades);
-        this.capacidadOcupada +=1 ;
+        nodoProducto producto = lp.obtenerElemento(codigoProd);
+        producto.stockTotal += cantUnidades;
+        producto.pc.apilar(nroCaja, cantUnidades);
+        this.capacidadOcupada +=1;
         
-       System.out.println("1- prod.stockTotal: "+ prod.stockTotal);
-        if(prod.pc.cima() != null){
-         System.out.println("1- prod.apilar: "+ prod.pc.cima().getCantUnidades());
+       System.out.println("1- prod.stockTotal: "+ producto.stockTotal);
+        if(producto.pc.cima() != null){
+         System.out.println("1- prod.apilar: "+ producto.pc.cima().getCantUnidades());
         }
         System.out.println("1- prod.capacidadOcupada: "+ this.capacidadOcupada);
         
         //ver si hay ordenes en espera para ese producto y generar envio
-        nodoEnvio ordenEspera = prod.ce.fondo();
-        nodoCaja caja = prod.pc.cima();
+        nodoEnvio ordenEspera = producto.ce.fondo();
+        nodoCaja caja = producto.pc.cima();
         manejoOrdenREC(ordenEspera,caja);
         
-        System.out.println("2- prod.stockTotal: "+ prod.stockTotal);
-        if(prod.pc.cima() != null){
-         System.out.println("2- prod.apilar: "+ prod.pc.cima().getCantUnidades());
+        System.out.println("2- prod.stockTotal: "+ producto.stockTotal);
+        if(producto.pc.cima() != null){
+         System.out.println("2- prod.apilar: "+ producto.pc.cima().getCantUnidades()); 
         }
         System.out.println("2- prod.capacidadOcupada: "+ this.capacidadOcupada);
         
@@ -192,6 +193,8 @@ public class Obligatorio implements IObligatorio {
         
         return ret;
     }
+    
+    
     
     public void manejoOrdenREC(nodoEnvio ordenEspera,  nodoCaja caja){
         if(ordenEspera != null && caja != null){
@@ -236,7 +239,7 @@ public class Obligatorio implements IObligatorio {
         nodoProducto producto = lp.obtenerElemento(codProducto);
         
         
-        System.out.println("1- prod.stockTotal: "+ producto.stockTotal);
+        System.out.println("1- prod.stockTotal: "+ producto.stockTotal); 
         if(producto.pc.cima() != null){
          System.out.println("1- prod.apilar: "+ producto.pc.cima().getCantUnidades());
         }
@@ -305,9 +308,7 @@ public class Obligatorio implements IObligatorio {
                 manejoCajasREC(cajaSiguiente, auxCant, camion, cliente, producto,llamadaOE);
              }else{
                 //no hay mas cajas genero una orden de espera, por la cantidad actual
-                //System.out.println("sistemaDistribucion.Obligatorio.manejoCajasREC()");
                 if(llamadaOE){
-                    //producto.ce.desencolar();
                     producto.ce.fondo().setCantidadUnidades(auxCant);
                 }else{
                     producto.ce.encolar(camion, cliente, producto, auxCant);
@@ -326,6 +327,7 @@ public class Obligatorio implements IObligatorio {
     @Override
     public Retorno listarCamiones() {
         Retorno ret = new Retorno(Retorno.Resultado.NO_IMPLEMENTADA);
+        ret.resultado = Retorno.Resultado.OK;
         lcam.mostrarREC();
         return ret;
     }
@@ -333,6 +335,7 @@ public class Obligatorio implements IObligatorio {
     @Override
     public Retorno listarClientesOrdenado() {
         Retorno ret = new Retorno(Retorno.Resultado.NO_IMPLEMENTADA);
+        ret.resultado = Retorno.Resultado.OK;
         lc.mostrar();
         return ret;
     }
@@ -340,6 +343,7 @@ public class Obligatorio implements IObligatorio {
     @Override
     public Retorno listarProductos() {
         Retorno ret = new Retorno(Retorno.Resultado.NO_IMPLEMENTADA);
+        ret.resultado = Retorno.Resultado.OK;
         lp.mostrar();
         return ret;
     }

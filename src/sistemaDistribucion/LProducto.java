@@ -85,7 +85,7 @@ public class LProducto implements ILProducto {
     
     @Override
     public boolean buscarelemento(String nombre) {
-         boolean encontrado = false;
+        boolean encontrado = false;
         nodoProducto aux = this.getPrimero();
         while (aux != null && !encontrado) {
             if (aux.getNombre().equals(nombre)) {
@@ -114,7 +114,7 @@ public class LProducto implements ILProducto {
         nodoProducto aux = this.getPrimero();
         if (!this.esVacia()) {
             while (aux != null) {
-                System.out.print(aux.getCodigoProd()+ " - " + aux.getNombre()+ " - "+ aux.getDescripcion());
+                System.out.println(aux.getCodigoProd()+ " - " + aux.getNombre()+ " - "+ aux.getDescripcion());
                 aux = aux.getSiguiente();
             }
         } else {
@@ -243,6 +243,17 @@ public class LProducto implements ILProducto {
         return this.getCantnodos();
     }
 
-   
+   public boolean validarExistenciaCaja(int nroCaja){
+        boolean encontrado = false;
+        nodoProducto aux = this.getPrimero();
+        while (aux != null && !encontrado) {
+            if (aux.pc.buscarelemento(nroCaja)) {
+                encontrado = true;
+            }
+            aux = aux.getSiguiente();
+        }
+        
+        return encontrado;
+    }
 
 }
