@@ -5,35 +5,35 @@ import sistemaDistribucion.Retorno;
 
 public interface IObligatorio {
     
-    //pre:      post:
+    //pre:Sistema debe estar creado         post:Inicializa las listas necesarias para la representacion del sistema y su capacidad. 
     public Retorno crearSistemaDeDistribucion(int capacidadMax);
-     //pre:      post:
+     //pre:Sistema debe estar creado        post:Agrega un nuevo cliente al sistema siempre y cuando sus datos sean validos.
     public Retorno agregarCliente(String nombre,String rut,int tel, String direccion);
-     //pre:      post:
+     //pre:Sistema debe estar creado        post:
     public Retorno eliminarCliente(String rut);
-     //pre:      post:
+     //pre:Sistema debe estar creado        post:
     public Retorno agregarCamion(String matricula, int toneladasMaxSoportadas); 
-     //pre:      post:
+     //pre:Sistema debe estar creado        post:
     public Retorno eliminarCamion(String matricula);
-     //pre:      post:
+     //pre:Sistema debe estar creado        post:
     public Retorno registrarProducto(String nombre, String descripcion);
-     //pre:      post:
+     //pre:Sistema debe estar creado        post:
     public Retorno altaDeStockDeProducto(String matriculaCamion, int codigoProd, int nroCaja, int cantUnidades);
-     //pre:      post:
+     //pre:Sistema debe estar creado        post:
     public Retorno retiroDeProducto(String matriculaCam, String rutCliente, int codProducto, int cant); 
-     //pre:      post:
+     //pre:Sistema debe estar creado        post:
     public Retorno listarCamiones();
-     //pre:      post:
+     //pre:Sistema debe estar creado        post:
     public Retorno listarClientesOrdenado(); 
-     //pre:      post:
+     //pre:Sistema debe estar creado        post:
     public Retorno listarProductos(); 
-     //pre:      post:
+     //pre:Sistema debe estar creado        post:
     public Retorno ultimoProductoRegistrado();
-     //pre:      post:
+     //pre:Sistema debe estar creado        post:
     public Retorno listarEnvíosDeProducto(int codProd);
-     //pre:      post:
+     //pre:Sistema debe estar creado        post:
     public Retorno listarOrdenesPendientes(int codProd);
-     //pre:      post:
+     //pre:Sistema debe estar creado        post:
     public Retorno reporteDeEnviosDeProductos();
     
     

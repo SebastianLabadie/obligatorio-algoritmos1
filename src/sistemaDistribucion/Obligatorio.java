@@ -62,11 +62,14 @@ public class Obligatorio implements IObligatorio {
     public Retorno eliminarCliente(String rut) {
         Retorno ret = new Retorno(Retorno.Resultado.NO_IMPLEMENTADA);
         if (lc.buscarelemento(rut)) {
+            //si tiene envios relacionados enviar error 2
+            
+            
             lc.borrarElemento(rut);
             ret.resultado = Retorno.Resultado.OK;
             ret.valorString = "Cliente eliminado con exito.";
             
-            //si tiene envios relacionados enviar error 2
+            
             
         }else{
             ret.resultado = Retorno.Resultado.ERROR_1;
@@ -140,6 +143,8 @@ public class Obligatorio implements IObligatorio {
             ret.valorString = "Error ya existe un producto con el mismo nombre.";
         }else{
             lp.agregarFinal(nombre, descripcion);
+            nodoProducto a = lp.getUltimo();
+            a.pc.maximo = capacidadCajas;
             ret.resultado = Retorno.Resultado.OK;  
             ret.valorString = "Producto registrado con exito";
         }
