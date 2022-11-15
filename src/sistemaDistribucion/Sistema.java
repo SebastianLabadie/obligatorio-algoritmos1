@@ -223,7 +223,7 @@ public class Sistema {
     public static void pruebasDeReporteDeEnviosXProducto(Obligatorio s, Prueba p) {
 
         p.ver(s.reporteDeEnviosDeProductos().resultado, Retorno.Resultado.OK, "Se muestra el reporte de evÃ­os por productos");
-
+        p.ver(s.listarEnvíosDeProducto(1).resultado, Retorno.Resultado.OK, "Se muestra el reporte de evÃ­os por productos");
         /*
         *********** Ejemplo de reporte de envÃ­os por producto a cliente ****************
         

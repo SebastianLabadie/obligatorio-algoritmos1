@@ -106,7 +106,24 @@ public class Obligatorio implements IObligatorio {
     @Override
     public Retorno eliminarCamion(String matricula) {
         Retorno ret = new Retorno(Retorno.Resultado.NO_IMPLEMENTADA);
-
+        if(lcam.buscarelemento(matricula) == false)
+        {
+            ret.resultado = Retorno.Resultado.ERROR_1;
+            ret.valorString = "Numero de matricula no esta asignado a ningun camion"; 
+            return ret;
+        }
+        
+        
+        if (le.buscarelemento(matricula) == true)
+        {
+            ret.resultado = Retorno.Resultado.ERROR_2;
+            ret.valorString = "Camion Tiene entregas Realizadas";     
+            return ret;
+        }
+        
+        lcam.borrarElemento(matricula);
+        ret.resultado = Retorno.Resultado.OK;
+        ret.valorString = "Camion Eliminado Correctamente";
         return ret;
     }
 
@@ -337,6 +354,7 @@ public class Obligatorio implements IObligatorio {
         Retorno ret = new Retorno(Retorno.Resultado.NO_IMPLEMENTADA);
         ret.resultado = Retorno.Resultado.OK;
         lc.mostrar();
+        
         return ret;
     }
 
@@ -355,11 +373,22 @@ public class Obligatorio implements IObligatorio {
         System.out.println("cod: "+prod.codigoProd+" nombre: "+prod.nombre + " descripcion: "+prod.descripcion);
         return ret;
     }
-
     @Override
     public Retorno listarEnvíosDeProducto(int codProd) {
         Retorno ret = new Retorno(Retorno.Resultado.NO_IMPLEMENTADA);
-
+        if (lp.buscarelemento(codProd) == false)
+        {
+             ret.resultado = Retorno.Resultado.ERROR_1;
+             ret.valorString = "No existe codigo Producto";
+             return ret;
+        }
+        nodoEnvio aux = le.getPrimero();
+        le.obtenerElementoByCodigoProd(codProd, aux);
+       
+        ret.resultado = Retorno.Resultado.OK;  
+        ret.valorString = "Envios";
+        
+        
         return ret;
     }
 

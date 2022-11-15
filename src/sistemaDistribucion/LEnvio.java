@@ -72,19 +72,19 @@ public class LEnvio implements ILEnvio {
         }
     }
 
-//    @Override
-//    public boolean buscarelemento(int codigoProd) {
-//        boolean encontrado = false;
-//        nodoEnvio aux = this.getPrimero();
-//        while (aux != null && !encontrado) {
-//            if (aux.getCodigoProd() == codigoProd) {
-//                encontrado = true;
-//            }
-//            aux = aux.getSiguiente();
-//        }
-//        return encontrado;
-//    }
-//    
+    @Override
+    public boolean buscarelemento(String matricula) {
+        boolean encontrado = false;
+        nodoEnvio aux = this.getPrimero();
+        while (aux != null && !encontrado) {
+            if (aux.getCamion().matricula == matricula) {
+                encontrado = true;
+            }
+            aux = aux.getSiguiente();
+        }
+        return encontrado;
+    }
+    
 //    @Override
 //    public boolean buscarelemento(String nombre) {
 //         boolean encontrado = false;
@@ -243,6 +243,24 @@ public class LEnvio implements ILEnvio {
     @Override
     public int cantElementos() {
         return this.getCantnodos();
+    }
+
+    @Override
+    public void obtenerElementoByCodigoProd(int CodigoProd,nodoEnvio aux) {
+       
+        
+            if (aux.getProducto().codigoProd == CodigoProd) {
+                System.out.println(aux.getCamion().matricula + " - " + aux.getCliente().nombre + " - " + aux.getCantidadUnidades());
+            }
+            
+            aux = aux.getSiguiente();
+            
+            if( aux != null){
+                obtenerElementoByCodigoProd(CodigoProd, aux);
+            }
+            
+   
+        
     }
 
    

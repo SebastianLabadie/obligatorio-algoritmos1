@@ -10,8 +10,8 @@ public interface ILEnvio {
     public boolean esVacia();
     public void agregarInicio(nodoCamion camion, nodoCliente cliente, nodoProducto producto, int cant);
     public void borrarInicio(); 
-//    public boolean buscarelemento(String matricula);
-//    public nodoEnvio obtenerElemento(String matricula);
+    public boolean buscarelemento(String matricula);
+    public void obtenerElementoByCodigoProd(int CodigoProd,nodoEnvio aux);
     public void mostrar();
     public void mostrarREC(nodoEnvio l);    
     public void vaciar();    

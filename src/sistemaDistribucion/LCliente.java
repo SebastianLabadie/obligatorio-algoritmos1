@@ -97,6 +97,8 @@ public class LCliente implements ILCliente {
         nodoCliente aux = this.getPrimero();
         if (!this.esVacia()) {
             while (aux != null) {
+               // if(aux.nombre){
+                //}
                 System.out.println(aux.getNombre()+ " - " + aux.getRut()+ " - "+ aux.getDireccion());
                 aux = aux.getSiguiente();
             }
