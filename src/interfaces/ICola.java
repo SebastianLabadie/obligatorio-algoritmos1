@@ -14,4 +14,5 @@ public interface ICola {
    public int  cantelementos() ;  // cantidad de elementos
    public nodoEnvio  frente();   //Mostrar el que esta en frente  de la cola    
    public nodoEnvio fondo();
+   public void mostrar();
 }

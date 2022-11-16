@@ -161,7 +161,7 @@ public class Sistema {
         Cod. Prod: 6 - Laptop Stu - 10 unidades
         Cod. Prod: 7 - Barra de ejercicio - 0 unidades
          */
-        p.ver(s.listarOrdenesPendientes(1).resultado, Retorno.Resultado.OK, "Ordenes pendientes del producto 1: No hay");
+        /*p.ver(s.listarOrdenesPendientes(1).resultado, Retorno.Resultado.OK, "Ordenes pendientes del producto 1: No hay");
         p.ver(s.listarOrdenesPendientes(2).resultado, Retorno.Resultado.OK, "Ordenes pendientes del producto 2: Orden pendiente:1000u");
         p.ver(s.listarOrdenesPendientes(3).resultado, Retorno.Resultado.OK, "Ordenes pendientes del producto 3: Orden pendiente:10u - Orden pendiente:30u");
         p.ver(s.listarOrdenesPendientes(4).resultado, Retorno.Resultado.OK, "Ordenes pendientes del producto 4: No hay");
@@ -169,7 +169,7 @@ public class Sistema {
         p.ver(s.listarOrdenesPendientes(6).resultado, Retorno.Resultado.OK, "Ordenes pendientes del producto 6: No hay");
         p.ver(s.listarOrdenesPendientes(7).resultado, Retorno.Resultado.OK, "Ordenes pendientes del producto 7: Orden pendiente:1000u");
         p.ver(s.listarOrdenesPendientes(11).resultado, Retorno.Resultado.ERROR_1, "No existe el producto de cÃ³digo 11");
-
+*/
         p.ver(s.ultimoProductoRegistrado().resultado, Retorno.Resultado.OK, "Producto: Cod. Prod: 7 - Barra de ejercicio - 0 unidades");
 
         p.ver(s.altaDeStockDeProducto("MEC4452", 2, 194, 2000).resultado, Retorno.Resultado.OK, "Se agregan 2000 unidades de stock al producto Candado St. Se hace retiro pendiente de 1000u ");
@@ -223,7 +223,9 @@ public class Sistema {
     public static void pruebasDeReporteDeEnviosXProducto(Obligatorio s, Prueba p) {
 
         p.ver(s.reporteDeEnviosDeProductos().resultado, Retorno.Resultado.OK, "Se muestra el reporte de evÃ­os por productos");
-        p.ver(s.listarEnvíosDeProducto(1).resultado, Retorno.Resultado.OK, "Se muestra el reporte de evÃ­os por productos");
+        p.ver(s.listarEnvíosDeProducto(3).resultado, Retorno.Resultado.OK, "Se lista el envio por productos");
+        p.ver(s.listarOrdenesPendientes(6).resultado, Retorno.Resultado.OK, "Reporte lista envios");
+        
         /*
         *********** Ejemplo de reporte de envÃ­os por producto a cliente ****************
         

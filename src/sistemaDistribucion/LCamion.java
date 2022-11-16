@@ -115,6 +115,7 @@ public class LCamion implements ILCamion {
 
     }
 
+    
     public String mostrarRECPrimeroalUltimo(nodoCamion primero, nodoCamion ultimo) {
         if (primero == ultimo) {
             return " " + ultimo.getMatricula();

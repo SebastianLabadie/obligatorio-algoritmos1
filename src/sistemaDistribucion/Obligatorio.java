@@ -373,7 +373,7 @@ public class Obligatorio implements IObligatorio {
 
     @Override
     public Retorno ultimoProductoRegistrado() {
-        Retorno ret = new Retorno(Retorno.Resultado.NO_IMPLEMENTADA);
+        Retorno ret = new Retorno(Retorno.Resultado.OK);
         nodoProducto prod = lp.getUltimo();
         System.out.println("cod: "+prod.codigoProd+" nombre: "+prod.nombre + " descripcion: "+prod.descripcion);
         return ret;
@@ -389,7 +389,7 @@ public class Obligatorio implements IObligatorio {
         }
         nodoEnvio aux = le.getPrimero();
         le.obtenerElementoByCodigoProd(codProd, aux);
-       
+        le.mostrar();
         ret.resultado = Retorno.Resultado.OK;  
         ret.valorString = "Envios";
         
@@ -399,15 +399,19 @@ public class Obligatorio implements IObligatorio {
 
     @Override
     public Retorno listarOrdenesPendientes(int codProd) {
-        Retorno ret = new Retorno(Retorno.Resultado.NO_IMPLEMENTADA);
-
+        Retorno ret = new Retorno(Retorno.Resultado.OK);
+        nodoProducto a = lp.obtenerElemento(codProd);
+        if (a !=null){
+        
+            a.ce.mostrar();
+        }
         return ret;
     }
 
     @Override
     public Retorno reporteDeEnviosDeProductos() {
         Retorno ret = new Retorno(Retorno.Resultado.NO_IMPLEMENTADA);
-
+        
         return ret;
     }
 

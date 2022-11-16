@@ -119,6 +119,21 @@ public class Cola implements ICola {
         }
     }
 
+    @Override
+    public void mostrar() {
+        
+        nodoEnvio aux = this.getPrimero();
+        if (!this.esVacia()) {
+            while (aux != null) {
+                System.out.println(aux.getProducto().nombre+ " - " + aux.getCliente().nombre+ " - ");
+                aux = aux.getSiguiente();
+            }
+        } else {
+            System.out.println("La lista espera esta vacioa");
+        }
+        System.out.println();
+    }
+
     
     
     
