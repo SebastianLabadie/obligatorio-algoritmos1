@@ -116,7 +116,7 @@ public class LEnvio implements ILEnvio {
         nodoEnvio aux = this.getPrimero();
         if (!this.esVacia()) {
             while (aux != null) {
-                System.out.print(aux.getCamion().matricula+ " - " + aux.getCliente().rut+ " - "+ aux.getProducto().nombre + " - "+aux.getCantidadUnidades());
+                System.out.println(aux.getCamion().matricula+ " - " + aux.getCliente().rut+ " - "+ aux.getProducto().nombre + " - "+aux.getCantidadUnidades());
                 aux = aux.getSiguiente();
             }
         } else {

@@ -402,7 +402,6 @@ public class Obligatorio implements IObligatorio {
         Retorno ret = new Retorno(Retorno.Resultado.OK);
         nodoProducto a = lp.obtenerElemento(codProd);
         if (a !=null){
-        
             a.ce.mostrar();
         }
         return ret;
