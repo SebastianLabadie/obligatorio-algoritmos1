@@ -25,7 +25,7 @@ public class Sistema {
 
     public static void pruebasCreacionSistema_1(Obligatorio s, Prueba p) {
 
-        p.ver(s.crearSistemaDeDistribucion(5).resultado, Retorno.Resultado.OK, "Se crea el sistema con capacidad 5");
+        p.ver(s.crearSistemaDeDistribucion(5).resultado, Retorno.Resultado.OK, "Se crea el sistema con capacidad 10");
         p.ver(s.crearSistemaDeDistribucion(-1).resultado, Retorno.Resultado.ERROR_1, "No se crea el sistema, capacidad <=0");
         p.ver(s.crearSistemaDeDistribucion(10).resultado, Retorno.Resultado.OK, "Se crea el sistema con capacidad 12");
     }
@@ -161,7 +161,7 @@ public class Sistema {
         Cod. Prod: 6 - Laptop Stu - 10 unidades
         Cod. Prod: 7 - Barra de ejercicio - 0 unidades
          */
-        /*p.ver(s.listarOrdenesPendientes(1).resultado, Retorno.Resultado.OK, "Ordenes pendientes del producto 1: No hay");
+        p.ver(s.listarOrdenesPendientes(1).resultado, Retorno.Resultado.OK, "Ordenes pendientes del producto 1: No hay");
         p.ver(s.listarOrdenesPendientes(2).resultado, Retorno.Resultado.OK, "Ordenes pendientes del producto 2: Orden pendiente:1000u");
         p.ver(s.listarOrdenesPendientes(3).resultado, Retorno.Resultado.OK, "Ordenes pendientes del producto 3: Orden pendiente:10u - Orden pendiente:30u");
         p.ver(s.listarOrdenesPendientes(4).resultado, Retorno.Resultado.OK, "Ordenes pendientes del producto 4: No hay");
@@ -169,11 +169,11 @@ public class Sistema {
         p.ver(s.listarOrdenesPendientes(6).resultado, Retorno.Resultado.OK, "Ordenes pendientes del producto 6: No hay");
         p.ver(s.listarOrdenesPendientes(7).resultado, Retorno.Resultado.OK, "Ordenes pendientes del producto 7: Orden pendiente:1000u");
         p.ver(s.listarOrdenesPendientes(11).resultado, Retorno.Resultado.ERROR_1, "No existe el producto de cÃ³digo 11");
-*/
+
         p.ver(s.ultimoProductoRegistrado().resultado, Retorno.Resultado.OK, "Producto: Cod. Prod: 7 - Barra de ejercicio - 0 unidades");
 
         p.ver(s.altaDeStockDeProducto("MEC4452", 2, 194, 2000).resultado, Retorno.Resultado.OK, "Se agregan 2000 unidades de stock al producto Candado St. Se hace retiro pendiente de 1000u ");
-        //p.ver(s.listarOrdenesPendientes(2).resultado, Retorno.Resultado.OK, "Ordenes pendientes del producto 2: No hay");
+        p.ver(s.listarOrdenesPendientes(2).resultado, Retorno.Resultado.OK, "Ordenes pendientes del producto 2: No hay");
         p.ver(s.listarProductos().resultado, Retorno.Resultado.OK, "Se listan 7 productos");
 
         /*
@@ -208,8 +208,9 @@ public class Sistema {
         p.ver(s.eliminarCliente("888").resultado, Retorno.Resultado.OK, "Se elimina el cliente 888");
 
         p.ver(s.eliminarCliente("123").resultado, Retorno.Resultado.ERROR_1, "No se elimina. No existe cliente con rut 123");
-        
-        //p.ver(s.listarClientesOrdenado().resultado, Retorno.Resultado.OK, "Se listan 5 clientes");
+        p.ver(s.eliminarCliente("111").resultado, Retorno.Resultado.ERROR_2, "No se elimina. El cliente 111 tiene entregas realizadas");
+
+        p.ver(s.listarClientesOrdenado().resultado, Retorno.Resultado.OK, "Se listan 5 clientes");
         /*
         *********** Ejemplo de reporte de clientes listados ordenados alfabeticamente ****************
         Felipe MuÃ±oz - 333
@@ -221,20 +222,15 @@ public class Sistema {
 
     public static void pruebasDeReporteDeEnviosXProducto(Obligatorio s, Prueba p) {
 
-       
-        p.ver(s.listarEnvíosDeProducto(3).resultado, Retorno.Resultado.OK, "Listar Envios de Producto");
-        p.ver(s.listarOrdenesPendientes(999).resultado, Retorno.Resultado.ERROR_1, "No se encuentra Producto");
-        p.ver(s.listarOrdenesPendientes(3).resultado, Retorno.Resultado.OK, "Reporte lista envios");
-        
-        p.ver(s.reporteDeEnviosDeProductos().resultado, Retorno.Resultado.OK, "Reporte Envio de Productos");
-        
+        p.ver(s.reporteDeEnviosDeProductos().resultado, Retorno.Resultado.OK, "Se muestra el reporte de evÃ­os por productos");
+
         /*
         *********** Ejemplo de reporte de envÃ­os por producto a cliente ****************
         
         
                          333      111     444    222
         Cod. Prod: 1      0        2       0      0
-        Cod. Prod: 2      0        0       0      3
+        Cod. Prod: 2      0        0       0      2
         Cod. Prod: 3      0        0       1      0
         Cod. Prod: 4      0        0       0      0
         Cod. Prod: 5      0        0       0      0

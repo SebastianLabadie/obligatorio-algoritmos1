@@ -63,8 +63,11 @@ public class Obligatorio implements IObligatorio {
         Retorno ret = new Retorno(Retorno.Resultado.NO_IMPLEMENTADA);
         if (lc.buscarelemento(rut)) {
             //si tiene envios relacionados enviar error 2
-            
-            
+            if(le.obtenerCantidadByCliente(rut)){
+                ret.resultado = Retorno.Resultado.ERROR_2;
+                ret.valorString = "Error cliente tiene envios asociados.";
+                return ret;
+            }
             lc.borrarElemento(rut);
             ret.resultado = Retorno.Resultado.OK;
             ret.valorString = "Cliente eliminado con exito.";
@@ -416,7 +419,7 @@ public class Obligatorio implements IObligatorio {
     @Override
     public Retorno reporteDeEnviosDeProductos() {
         Retorno ret = new Retorno(Retorno.Resultado.NO_IMPLEMENTADA);
-        int FILAS = lp.cantElementos();
+        int FILAS = lp.cantElementos() + 1;
         int COLUMNAS = lc.cantElementos() + 1; 
         System.out.println("FILAS " + FILAS);
         System.out.println("COLUMNAS " + COLUMNAS);
@@ -425,7 +428,7 @@ public class Obligatorio implements IObligatorio {
         int i;
         int j;
         
-        le.mostrar();
+        lp.mostrar();
         nodoCliente cliente = lc.getPrimero();
         nodoProducto producto = lp.getPrimero(); 
         for (i = 0; i < FILAS; i++) {

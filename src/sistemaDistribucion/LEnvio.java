@@ -263,6 +263,22 @@ public class LEnvio implements ILEnvio {
         
     }
     
+     public boolean obtenerCantidadByCliente(String Rut){
+        nodoEnvio aux = this.getPrimero();
+        boolean encontre=false;
+        if (!this.esVacia()) {
+            while (aux != null && !encontre) {
+                if (aux.cliente.getRut().equals(Rut)){
+                    encontre = true;
+                }
+                aux = aux.getSiguiente();
+            }
+            
+        } 
+        return encontre;
+       
+    }
+    
     public int obtenerCantidadByClienteYProducto(int CodProd,int Rut){
         nodoEnvio aux = this.getPrimero();
         
