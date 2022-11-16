@@ -208,8 +208,7 @@ public class Sistema {
         p.ver(s.eliminarCliente("888").resultado, Retorno.Resultado.OK, "Se elimina el cliente 888");
 
         p.ver(s.eliminarCliente("123").resultado, Retorno.Resultado.ERROR_1, "No se elimina. No existe cliente con rut 123");
-        p.ver(s.eliminarCliente("111").resultado, Retorno.Resultado.ERROR_2, "No se elimina. El cliente 111 tiene entregas realizadas");
-
+        
         //p.ver(s.listarClientesOrdenado().resultado, Retorno.Resultado.OK, "Se listan 5 clientes");
         /*
         *********** Ejemplo de reporte de clientes listados ordenados alfabeticamente ****************
@@ -222,10 +221,12 @@ public class Sistema {
 
     public static void pruebasDeReporteDeEnviosXProducto(Obligatorio s, Prueba p) {
 
-        p.ver(s.reporteDeEnviosDeProductos().resultado, Retorno.Resultado.OK, "asd");
-        p.ver(s.listarEnvíosDeProducto(3).resultado, Retorno.Resultado.OK, "dsa");
-          p.ver(s.listarOrdenesPendientes(3).resultado, Retorno.Resultado.OK, "Reporte lista envios");
-             
+       
+        p.ver(s.listarEnvíosDeProducto(3).resultado, Retorno.Resultado.OK, "Listar Envios de Producto");
+        p.ver(s.listarOrdenesPendientes(999).resultado, Retorno.Resultado.ERROR_1, "No se encuentra Producto");
+        p.ver(s.listarOrdenesPendientes(3).resultado, Retorno.Resultado.OK, "Reporte lista envios");
+        
+        p.ver(s.reporteDeEnviosDeProductos().resultado, Retorno.Resultado.OK, "Reporte Envio de Productos");
         
         /*
         *********** Ejemplo de reporte de envÃ­os por producto a cliente ****************

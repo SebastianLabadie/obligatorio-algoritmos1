@@ -404,13 +404,71 @@ public class Obligatorio implements IObligatorio {
         if (a !=null){
             a.ce.mostrar();
         }
+        else
+        {
+            ret.resultado = Retorno.Resultado.ERROR_1;
+            ret.valorString = "No se encuentra Producto";
+            return ret;
+        }
         return ret;
     }
 
     @Override
     public Retorno reporteDeEnviosDeProductos() {
         Retorno ret = new Retorno(Retorno.Resultado.NO_IMPLEMENTADA);
+        int FILAS = lp.cantElementos();
+        int COLUMNAS = lc.cantElementos() + 1; 
+        System.out.println("FILAS " + FILAS);
+        System.out.println("COLUMNAS " + COLUMNAS);
         
+        int[][] Matriz = new int[FILAS][COLUMNAS];
+        int i;
+        int j;
+        
+        le.mostrar();
+        nodoCliente cliente = lc.getPrimero();
+        nodoProducto producto = lp.getPrimero(); 
+        for (i = 0; i < FILAS; i++) {
+            //0
+          
+            for (j = 0; j < COLUMNAS; j++) {
+                
+                if (i==0 && j>=1 ){
+                Matriz[i][j] = Integer.parseInt(cliente.getRut());
+                
+                if (j+1 != COLUMNAS ){
+                }
+                    cliente = cliente.getSiguiente();
+                
+                }
+
+                if(i>=1 && j==0){
+                    Matriz[i][j] = producto.getCodigoProd();
+                    producto = producto.getSiguiente();
+                    
+                }
+                
+                if(i>=1 && j>=1){
+                   Matriz[i][j] = le.obtenerCantidadByClienteYProducto(Matriz[i][0], Matriz[0][j]);
+                   
+
+                }
+                
+                
+                
+                
+            }
+        }
+        for (i = 0; i < Matriz.length; i++) { 
+          for (j = 0; j < Matriz[i].length; j++) {
+              
+              System.out.print(Matriz[i][j] + " ");
+              
+          }
+          System.out.println();
+        }
+        
+         
         return ret;
     }
 

@@ -262,6 +262,27 @@ public class LEnvio implements ILEnvio {
    
         
     }
+    
+    public int obtenerCantidadByClienteYProducto(int CodProd,int Rut){
+        nodoEnvio aux = this.getPrimero();
+        
+        int Cantidad = 0;
+        if (!this.esVacia()) {
+            while (aux != null) {
+                
+                if (Integer.parseInt(aux.cliente.getRut())==Rut && aux.producto.getCodigoProd()==CodProd){
+                    Cantidad += aux.cantidadUnidades;
+                }
+                
+                aux = aux.getSiguiente();
+            }
+            
+        } else {
+            System.out.println("La lista de productos esta vacia.");
+        }
+        return Cantidad;
+       
+    }
 
    
 

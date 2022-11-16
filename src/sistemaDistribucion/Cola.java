@@ -124,8 +124,10 @@ public class Cola implements ICola {
         
         nodoEnvio aux = this.getPrimero();
         if (!this.esVacia()) {
+            System.out.println("Ordenes Pendientes:");
+                
             while (aux != null) {
-                System.err.println("dasadsadsdas");
+                
                 System.out.println(aux.getProducto().nombre+ " - " + aux.getCliente().nombre+ " - ");
                 aux = aux.getSiguiente();
             }
