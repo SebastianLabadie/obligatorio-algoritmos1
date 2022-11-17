@@ -112,9 +112,13 @@ public class LProducto implements ILProducto {
     @Override
     public void mostrar() {
         nodoProducto aux = this.getPrimero();
+        System.out.println("Productos:");
         if (!this.esVacia()) {
             while (aux != null) {
-                System.out.println(aux.getCodigoProd()+ " - " + aux.getNombre()+ " - "+ aux.getDescripcion());
+                System.out.println("    Codigo Prod: "+aux.getCodigoProd());
+                System.out.println("    Nombre: "+aux.getNombre());
+                System.out.println("    Descripcion: "+aux.getDescripcion());
+                System.out.println("");
                 aux = aux.getSiguiente();
             }
         } else {

@@ -108,31 +108,21 @@ public class LCamion implements ILCamion {
 
     @Override
     public void mostrarREC() {
-        System.out.println("Muestro del primero al ultimo");
+        System.out.println("Camiones:");
         System.out.println(mostrarRECPrimeroalUltimo(this.primero, this.ultimo));
-        //System.out.println("Muestro del ultimo al primero");
-        //System.out.println(mostrarRECUltimoalPrimero(this.primero, this.ultimo));
 
     }
 
     
     public String mostrarRECPrimeroalUltimo(nodoCamion primero, nodoCamion ultimo) {
         if (primero == ultimo) {
-            return " " + ultimo.getMatricula();
+            return "    Matricula: " + ultimo.getMatricula();
         } else {
-            return primero.getMatricula()+ " - " + mostrarRECPrimeroalUltimo(primero.siguiente, ultimo);
-
+            return "    Matricula: "+primero.getMatricula()+ "\n" + mostrarRECPrimeroalUltimo(primero.siguiente, ultimo);
         }
     }
 
-    public String mostrarRECUltimoalPrimero(nodoCamion primero, nodoCamion ultimo) {
-        if (primero == ultimo) {
-            return " " + ultimo.getMatricula();
-        } else {
-            return mostrarRECUltimoalPrimero(primero.siguiente, ultimo) + " - " + primero.getMatricula();
-
-        }
-    }
+   
 
     @Override
     public void vaciar() {

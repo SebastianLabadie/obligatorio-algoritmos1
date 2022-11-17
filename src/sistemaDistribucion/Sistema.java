@@ -11,7 +11,7 @@ public class Sistema {
     }
 
     public static void juegodepruba(Obligatorio s, Prueba p) {
-        pruebasCreacionSistema_1(s, p);
+        pruebasCreacionSistema(s, p);
         pruebasRegistroClientes(s, p);
         pruebasRegistroCamion(s, p);
         pruebasRegistroProducto(s, p);
@@ -23,76 +23,107 @@ public class Sistema {
         p.imprimirResultadosPrueba();
     }
 
-    public static void pruebasCreacionSistema_1(Obligatorio s, Prueba p) {
+    public static void pruebasCreacionSistema(Obligatorio s, Prueba p) {
 
-        p.ver(s.crearSistemaDeDistribucion(5).resultado, Retorno.Resultado.OK, "Se crea el sistema con capacidad 10");
-        p.ver(s.crearSistemaDeDistribucion(-1).resultado, Retorno.Resultado.ERROR_1, "No se crea el sistema, capacidad <=0");
-        p.ver(s.crearSistemaDeDistribucion(10).resultado, Retorno.Resultado.OK, "Se crea el sistema con capacidad 12");
+        Retorno r = s.crearSistemaDeDistribucion(5);
+        p.ver(r.resultado, Retorno.Resultado.OK, r.valorString);
+        
+        r = s.crearSistemaDeDistribucion(-1);
+        p.ver(r.resultado, Retorno.Resultado.ERROR_1, r.valorString);
+        
+        
+        r = s.crearSistemaDeDistribucion(10);
+        p.ver(r.resultado, Retorno.Resultado.OK, r.valorString);
     }
 
     public static void pruebasRegistroClientes(Obligatorio s, Prueba p) {
-        p.ver(s.agregarCliente("Micaela PÃ©rez", "111", 99368826, "Lorenzo MartÃ­nez 123").resultado, Retorno.Resultado.OK, "Se registra el cliente: Micaela PÃ©rez");
-        p.ver(s.agregarCliente("Romina Ã�lvarez", "222", 98999111, "Carlos Quijano 222").resultado, Retorno.Resultado.OK, "Se registra el cliente: Romina Ã�lvarez");
-        p.ver(s.agregarCliente("Felipe MuÃ±oz", "333", 97333333, "Luis Franzini 333").resultado, Retorno.Resultado.OK, "Se registra el cliente: Felipe MuÃ±oz");
-        p.ver(s.agregarCliente("Pedro GonzÃ¡lez", "111", 94222222, "Mercedes 888").resultado, Retorno.Resultado.ERROR_1, "Ya existe un cliente con rut 111");
-        p.ver(s.agregarCliente("Pedro GonzÃ¡lez", "444", 94222222, "Mercedes 888").resultado, Retorno.Resultado.OK, "Se registra el cliente: Pedro GonzÃ¡lez");
-        p.ver(s.agregarCliente("Ignacio Alcorta", "888", 91333123, "Uruguay 123").resultado, Retorno.Resultado.OK, "Se registra el cliente: Ignacio Alcorta");
-        p.ver(s.agregarCliente("Nicole BaÃ±ales", "222", 92323111, "Carlos Berg 934").resultado, Retorno.Resultado.ERROR_1, "Ya existe un cliente con rut 222");
-
-        p.ver(s.listarClientesOrdenado().resultado, Retorno.Resultado.OK, "Se listan 5 clientes");
-        /*
-        *********** Ejemplo de reporte de clientes listados ordenados alfabeticamente ****************
-        Felipe MuÃ±oz - 333
-        Ignacio Alcorta - 888
-        Micaela PÃ©rez - 111
-        Perdro GonzÃ¡lez - 444  
-        Romina Ã�lvarez - 222
-         */
+        Retorno r = s.agregarCliente("Sebastian Labadie", "111", 91843200, "Palmar 441");
+        p.ver(r.resultado, Retorno.Resultado.OK, r.valorString);
+        
+        r = s.agregarCliente("Oliva Cruz", "222", 92199411, "Chana 224");
+        p.ver(r.resultado, Retorno.Resultado.OK, r.valorString);
+        
+        r = s.agregarCliente("Gregorio Osuna", "333", 92349461, "Maldonado 224");
+        p.ver(r.resultado, Retorno.Resultado.OK, r.valorString);
+        
+        r = s.agregarCliente("Gregorio Osuna", "111", 92349461, "Guri 224");
+        p.ver(r.resultado, Retorno.Resultado.ERROR_1, r.valorString);
+        
+        r = s.agregarCliente("Maria Esperanza Chaparro", "444", 92199411, "Gaboto 224");
+        p.ver(r.resultado, Retorno.Resultado.OK, r.valorString);
+        
+        r = s.agregarCliente("Simon Saez", "888", 92199411, "La Paz 224");
+        p.ver(r.resultado, Retorno.Resultado.OK, r.valorString);
+        
+        r = s.agregarCliente("Dina Murillo", "222", 92199411, "Cabildo 224");
+        p.ver(r.resultado, Retorno.Resultado.ERROR_1, r.valorString);
+      
+        r = s.listarClientesOrdenado();
+        p.ver(r.resultado, Retorno.Resultado.OK, r.valorString);
+       
     }
 
     public static void pruebasRegistroCamion(Obligatorio s, Prueba p) {
-        p.ver(s.agregarCamion("MEC4452", 2000).resultado, Retorno.Resultado.OK, "Se registra el camiÃ³n de matrÃ­cula MEC4452");
-        p.ver(s.agregarCamion("OOO1111", 4000).resultado, Retorno.Resultado.OK, "Se registra el camiÃ³n de matrÃ­cula OOO1111");
-        p.ver(s.agregarCamion("WEC3234", 3000).resultado, Retorno.Resultado.OK, "Se registra el camiÃ³n de matrÃ­cula WEC3234");
-        p.ver(s.agregarCamion("MEC4452", 1000).resultado, Retorno.Resultado.ERROR_1, "No se registra. Ya existe un camiÃ³n de matrÃ­cula MEC4452");
-        p.ver(s.agregarCamion("TTT4500", 1000).resultado, Retorno.Resultado.OK, "Se registra el camiÃ³n de matrÃ­cula TTT4500");
-        p.ver(s.agregarCamion("IOE2893", 0).resultado, Retorno.Resultado.ERROR_2, "No se registra. La carga del camion es <= 0");
-        p.ver(s.agregarCamion("COC3100", 3000).resultado, Retorno.Resultado.OK, "Se registra el camiÃ³n de matrÃ­cula COC3100");
-
-        p.ver(s.listarCamiones().resultado, Retorno.Resultado.OK, "Se listan 5 camiones");
-        /*
-        *********** Ejemplo de reporte de camiones listados ****************
-        MEC4452 - 2000
-        OOO1111 - 4000
-        WEC3234 - 3000
-        TTT4500 - 1000 
-        COC3100 - 3000
-         */
+        Retorno r=s.agregarCamion("MEC4452", 2000);
+        p.ver(r.resultado, Retorno.Resultado.OK,r.valorString);
+        
+        r = s.agregarCamion("OOO1111", 4000);
+        p.ver(r.resultado, Retorno.Resultado.OK, r.valorString);
+        
+        
+        r = s.agregarCamion("WEC3234", 1000);
+        p.ver(r.resultado, Retorno.Resultado.OK, r.valorString);
+        
+        r = s.agregarCamion("MEC4452", 2500);
+        p.ver(r.resultado, Retorno.Resultado.ERROR_1, r.valorString);
+        
+        r = s.agregarCamion("TTT4500", 3000);
+        p.ver(r.resultado, Retorno.Resultado.OK, r.valorString);
+        
+        r = s.agregarCamion("IOE2893", 1200);
+        p.ver(r.resultado, Retorno.Resultado.ERROR_2, r.valorString);
+        
+        r = s.agregarCamion("COC3100", 100);
+        p.ver(r.resultado, Retorno.Resultado.OK, r.valorString);
+        
+        r=s.listarCamiones();
+        p.ver(r.resultado, Retorno.Resultado.OK, r.valorString);
+       
     }
 
     public static void pruebasRegistroProducto(Obligatorio s, Prueba p) {
-        p.ver(s.registrarProducto("Shampoo Lor", "Shampoo de 1l").resultado, Retorno.Resultado.OK, "Se registra el producto Shampoo Lor");
-        p.ver(s.registrarProducto("Candado St", "Candados de acero").resultado, Retorno.Resultado.OK, "Se registra el producto Candado St");
-        p.ver(s.registrarProducto("Bicicleta Ronda", "Bicicleta rodado 20").resultado, Retorno.Resultado.OK, "Se registra el producto Bicicleta Ronda");
-        p.ver(s.registrarProducto("TelevisiÃ³n Marc", "TelevisiÃ³n de 32 pulgadas").resultado, Retorno.Resultado.OK, "Se registra el producto TelevisiÃ³n Marc");
-        p.ver(s.registrarProducto("Monopatin", "Monopatn para niÃ±os").resultado, Retorno.Resultado.OK, "Se registra el producto Monopatin");
-
-        p.ver(s.registrarProducto("Candado St", "Candados de hierro").resultado, Retorno.Resultado.ERROR_1, "No se registra. Ya existe un producto de nombre Candado St");
-        p.ver(s.registrarProducto("Laptop Stu", "").resultado, Retorno.Resultado.ERROR_2, "No se registra. La descripciÃ³n esta vacÃ­a");
-        p.ver(s.registrarProducto("Laptop Stu", "Laptop de 17 pulgadas").resultado, Retorno.Resultado.OK, "Se registra el producto Laptop Stu");
-        p.ver(s.registrarProducto("Barra de ejercicio", "Barra de ejercicio de hierro").resultado, Retorno.Resultado.OK, "Se registra el producto Barra de ejercicio");
+        Retorno r=s.registrarProducto("IPhone 14", "IPhone 14 64 GB,negro");
+        p.ver(r.resultado, Retorno.Resultado.OK, r.valorString);
+        
+        r=s.registrarProducto("Garmin Venu", "Reloj inteligente GPS");
+        p.ver(r.resultado, Retorno.Resultado.OK, r.valorString);
+        
+        
+        
+        r=s.registrarProducto("Nike Pegasus 38", "Calzado deportivo");
+        p.ver(r.resultado, Retorno.Resultado.OK, r.valorString);
+        
+        r=s.registrarProducto("Ray-Ban rb4324", "Lentes de cristal no polarizados con proteccion UV");
+        p.ver(r.resultado, Retorno.Resultado.OK, r.valorString);
+        
+        r=s.registrarProducto("Apple AirPods", "Configuración sin esfuerzo, detección en el oído y cambio automático para una experiencia mágica. Comparte audio fácilmente entre dos juegos de AirPods en tu iPhone, iPad, iPod touch o Apple TV");
+        p.ver(r.resultado, Retorno.Resultado.OK, r.valorString);
+        
+        r=s.registrarProducto("Xbox Serie S", "Presentamos la Xbox Series S, la consola Xbox más pequeña y elegante de la historia. Experimenta la velocidad y el rendimiento de una consola totalmente digital de próxima generación a un precio accesible. ");
+        p.ver(r.resultado, Retorno.Resultado.ERROR_1, r.valorString);
+        
+        r=s.registrarProducto("Termo Stanley", "Está hecho con un aislamiento superior que mantiene los líquidos (sopa, café, té) bebidas frías o calientes frías hasta 24 horas. También está hecha con materiales sin BPA, manteniendo su contenido seguro para el consumo.");
+        p.ver(r.resultado, Retorno.Resultado.ERROR_2, r.valorString);
+        
+        r=s.registrarProducto("Aostirmotor Electric MTB", "Adaptarse a una variedad de terrenos. Nuestras bicicletas eléctricas de montaña para adultos están equipadas con neumáticos gruesos de 26*4 pulgadas, que pueden ayudar a una conducción suave. La buena adaptabilidad le permite disfrutar montando en playas de arena y terrenos nevados.");
+        p.ver(r.resultado, Retorno.Resultado.OK, r.valorString);
+        
+        r=s.registrarProducto("2020 Apple MacBook Pro", "Laptop");
+        p.ver(r.resultado, Retorno.Resultado.OK, r.valorString);
+        
 
         p.ver(s.listarProductos().resultado, Retorno.Resultado.OK, "Se listan 7 productos");
-        /*
-        *********** Ejemplo de reporte de productos listados con su stock ****************
-        Cod. Prod: 1 - Shampoo Lor - 0 unidades
-        Cod. Prod: 2 - Candado St - 0 unidades
-        Cod. Prod: 3 - Bicicleta Ronda - 0 unidades
-        Cod. Prod: 4 - TelevisiÃ³n Marc - 0 unidades
-        Cod. Prod: 5 - Monopatin - 0 unidades
-        Cod. Prod: 6 - Laptop Stu - 0 unidades
-        Cod. Prod: 7 - Barra de ejercicio - 0 unidades
-         */
+       
     }
 
     public static void pruebasAltaSotck(Obligatorio s, Prueba p) {

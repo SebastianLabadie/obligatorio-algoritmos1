@@ -95,17 +95,19 @@ public class LCliente implements ILCliente {
     @Override
     public void mostrar() {
         nodoCliente aux = this.getPrimero();
+        System.out.println("Clientes:");
+
         if (!this.esVacia()) {
             while (aux != null) {
-               // if(aux.nombre){
-                //}
-                System.out.println(aux.getNombre()+ " - " + aux.getRut()+ " - "+ aux.getDireccion());
+                System.out.println("    Nombre: "+aux.getNombre());
+                System.out.println("    Rut: "+aux.getRut());
+                System.out.println("    Direccion: "+aux.getDireccion());
+                System.out.println(" ");
                 aux = aux.getSiguiente();
             }
         } else {
             System.out.println("La lista de clientes esta vacia.");
         }
-        System.out.println();
     }
 
     @Override

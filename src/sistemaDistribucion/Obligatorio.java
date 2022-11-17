@@ -8,15 +8,9 @@ public class Obligatorio implements IObligatorio {
     LProducto lp;
     LCamion lcam;
     LEnvio le;
-    //PCaja pc;
-    //Cola ce;
-    
     
     int capacidadCajas;
     int capacidadOcupada;
-    //listastack
-        //nodostack => nodoproducto
-        // caja,unidad,prod -> controlar la cant max
     
     @Override
     public Retorno crearSistemaDeDistribucion(int capacidadMax) {
@@ -31,10 +25,10 @@ public class Obligatorio implements IObligatorio {
             this.capacidadCajas = capacidadMax;
             this.capacidadOcupada = 0;
             ret.resultado = Retorno.Resultado.OK;
-            ret.valorString = "Se pudo inicializar el sistema correctamente.";
+            ret.valorString = "Se pudo inicializar el sistema correctamente con capacidad "+capacidadMax;
         }else{
             ret.resultado = Retorno.Resultado.ERROR_1;
-            ret.valorString = "Error la capacidad de cajas es <= 0";
+            ret.valorString = "No se creo el sistema la capacidad de cajas es <= 0";
         }
         
         return ret;
@@ -45,13 +39,12 @@ public class Obligatorio implements IObligatorio {
         Retorno ret = new Retorno(Retorno.Resultado.NO_IMPLEMENTADA);
         
         if (!lc.buscarelemento(rut)) {
-            //lc.agregarFinal(nombre, rut, tel, direccion);
             lc.agregarOrd(nombre, rut, tel, direccion);
             ret.resultado = Retorno.Resultado.OK;
-            ret.valorString = "Cliente agregado con exito.";
+            ret.valorString = "Se registra el cliente: "+nombre;
         }else{
             ret.resultado = Retorno.Resultado.ERROR_1;
-            ret.valorString = "Error ya existe un cliente con igual rut";
+            ret.valorString = "No se registra, ya existe cliente con rut "+rut;
         }
         
         return ret;
@@ -89,21 +82,21 @@ public class Obligatorio implements IObligatorio {
         
         if(lcam.buscarelemento(matricula)){
             ret.resultado = Retorno.Resultado.ERROR_1;
-            ret.valorString = "Camion ya existe";
+            ret.valorString = "No se registra. Ya existe camion con matricula "+matricula;
             return ret;
         }
         
         if(toneladasMaxSoportadas <= 0)
         {
             ret.resultado = Retorno.Resultado.ERROR_2;
-            ret.valorString = "Toneladas no pueden ser menor o igual a 0";
+            ret.valorString = "No se registra. La carga del camion es menor a 0";
             return ret;
         }
         
         lcam.agregarFinal(matricula, toneladasMaxSoportadas);
         
         ret.resultado = Retorno.Resultado.OK;
-        ret.valorString = "Camion Agregado Correctamente";
+        ret.valorString = "Se registra el camion de matricula "+matricula;
             
         
         return ret;
@@ -138,18 +131,18 @@ public class Obligatorio implements IObligatorio {
         Retorno ret = new Retorno(Retorno.Resultado.NO_IMPLEMENTADA);
         if (descripcion.isEmpty()) {
             ret.resultado = Retorno.Resultado.ERROR_2;  
-            ret.valorString = "Error descripcion vacia.";
+            ret.valorString = "No se registra. Descripcion vacia.";
             return ret;
         }
         if (lp.buscarelemento(nombre)) {
             ret.resultado = Retorno.Resultado.ERROR_1;  
-            ret.valorString = "Error ya existe un producto con el mismo nombre.";
+            ret.valorString = "No se registra. Ya existe un producto de nombre "+nombre;
         }else{
             lp.agregarFinal(nombre, descripcion);
             nodoProducto a = lp.getUltimo();
             a.pc.maximo = capacidadCajas;
             ret.resultado = Retorno.Resultado.OK;  
-            ret.valorString = "Producto registrado con exito";
+            ret.valorString = "Se registra el producto "+nombre;
         }
         return ret;
     }
@@ -196,7 +189,7 @@ public class Obligatorio implements IObligatorio {
         producto.pc.apilar(nroCaja, cantUnidades);
         this.capacidadOcupada +=1;
         
-       System.out.println("1- prod.stockTotal: "+ producto.stockTotal);
+        System.out.println("1- prod.stockTotal: "+ producto.stockTotal);
         if(producto.pc.cima() != null){
          System.out.println("1- prod.apilar: "+ producto.pc.cima().getCantUnidades());
         }
@@ -353,6 +346,7 @@ public class Obligatorio implements IObligatorio {
     public Retorno listarCamiones() {
         Retorno ret = new Retorno(Retorno.Resultado.NO_IMPLEMENTADA);
         ret.resultado = Retorno.Resultado.OK;
+        ret.valorString="Se listan "+lcam.getCantnodos()+" camiones.";
         lcam.mostrarREC();
         return ret;
     }
@@ -361,6 +355,7 @@ public class Obligatorio implements IObligatorio {
     public Retorno listarClientesOrdenado() {
         Retorno ret = new Retorno(Retorno.Resultado.NO_IMPLEMENTADA);
         ret.resultado = Retorno.Resultado.OK;
+        ret.valorString="Se listan "+lc.getCantnodos()+" clientes.";
         lc.mostrar();
         
         return ret;
@@ -370,6 +365,7 @@ public class Obligatorio implements IObligatorio {
     public Retorno listarProductos() {
         Retorno ret = new Retorno(Retorno.Resultado.NO_IMPLEMENTADA);
         ret.resultado = Retorno.Resultado.OK;
+        ret.valorString="Se listan "+lp.getCantnodos()+" productos.";
         lp.mostrar();
         return ret;
     }
@@ -384,7 +380,7 @@ public class Obligatorio implements IObligatorio {
     @Override
     public Retorno listarEnvíosDeProducto(int codProd) {
         Retorno ret = new Retorno(Retorno.Resultado.NO_IMPLEMENTADA);
-        if (lp.buscarelemento(codProd) == false)
+        if (!lp.buscarelemento(codProd))
         {
              ret.resultado = Retorno.Resultado.ERROR_1;
              ret.valorString = "No existe codigo Producto";
@@ -419,10 +415,9 @@ public class Obligatorio implements IObligatorio {
     @Override
     public Retorno reporteDeEnviosDeProductos() {
         Retorno ret = new Retorno(Retorno.Resultado.NO_IMPLEMENTADA);
+        ret.resultado = Retorno.Resultado.OK;
         int FILAS = lp.cantElementos() + 1;
         int COLUMNAS = lc.cantElementos() + 1; 
-        System.out.println("FILAS " + FILAS);
-        System.out.println("COLUMNAS " + COLUMNAS);
         
         int[][] Matriz = new int[FILAS][COLUMNAS];
         int i;
@@ -464,9 +459,7 @@ public class Obligatorio implements IObligatorio {
         }
         for (i = 0; i < Matriz.length; i++) { 
           for (j = 0; j < Matriz[i].length; j++) {
-              
               System.out.print(Matriz[i][j] + " ");
-              
           }
           System.out.println();
         }
