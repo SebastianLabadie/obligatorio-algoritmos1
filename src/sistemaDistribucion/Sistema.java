@@ -109,10 +109,10 @@ public class Sistema {
         r=s.registrarProducto("Apple AirPods", "Configuración sin esfuerzo, detección en el oído y cambio automático para una experiencia mágica. Comparte audio fácilmente entre dos juegos de AirPods en tu iPhone, iPad, iPod touch o Apple TV");
         p.ver(r.resultado, Retorno.Resultado.OK, r.valorString);
         
-        r=s.registrarProducto("Xbox Serie S", "Presentamos la Xbox Series S, la consola Xbox más pequeña y elegante de la historia. Experimenta la velocidad y el rendimiento de una consola totalmente digital de próxima generación a un precio accesible. ");
+        r=s.registrarProducto("Apple AirPods", "dddd");
         p.ver(r.resultado, Retorno.Resultado.ERROR_1, r.valorString);
         
-        r=s.registrarProducto("Termo Stanley", "Está hecho con un aislamiento superior que mantiene los líquidos (sopa, café, té) bebidas frías o calientes frías hasta 24 horas. También está hecha con materiales sin BPA, manteniendo su contenido seguro para el consumo.");
+        r=s.registrarProducto("Termo Stanley", "");
         p.ver(r.resultado, Retorno.Resultado.ERROR_2, r.valorString);
         
         r=s.registrarProducto("Aostirmotor Electric MTB", "Adaptarse a una variedad de terrenos. Nuestras bicicletas eléctricas de montaña para adultos están equipadas con neumáticos gruesos de 26*4 pulgadas, que pueden ayudar a una conducción suave. La buena adaptabilidad le permite disfrutar montando en playas de arena y terrenos nevados.");
@@ -121,8 +121,8 @@ public class Sistema {
         r=s.registrarProducto("2020 Apple MacBook Pro", "Laptop");
         p.ver(r.resultado, Retorno.Resultado.OK, r.valorString);
         
-
-        p.ver(s.listarProductos().resultado, Retorno.Resultado.OK, "Se listan 7 productos");
+        r = s.listarProductos();
+        p.ver(r.resultado, Retorno.Resultado.OK, r.valorString);
        
     }
 
