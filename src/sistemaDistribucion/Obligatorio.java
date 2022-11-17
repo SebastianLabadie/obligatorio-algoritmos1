@@ -434,7 +434,7 @@ public class Obligatorio implements IObligatorio {
         int i;
         int j;
         
-        lp.mostrar();
+        
         nodoCliente cliente = lc.getPrimero();
         nodoProducto producto = lp.getPrimero(); 
         for (i = 0; i < FILAS; i++) {
