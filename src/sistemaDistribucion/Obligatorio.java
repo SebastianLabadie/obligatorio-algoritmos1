@@ -122,7 +122,7 @@ public class Obligatorio implements IObligatorio {
         
         lcam.borrarElemento(matricula);
         ret.resultado = Retorno.Resultado.OK;
-        ret.valorString = "Se elimina el camiÃ³n "+matricula;
+        ret.valorString = "Se elimina el camionn "+matricula;
         return ret;
     }
 
@@ -158,7 +158,7 @@ public class Obligatorio implements IObligatorio {
         }
         if (!lp.buscarelemento(codigoProd)) {
             ret.resultado = Retorno.Resultado.ERROR_2;  
-            ret.valorString ="No se registra. No existe el producto de cÃ³digo " + codigoProd;
+            ret.valorString ="No se registra. No existe el producto de codigo " + codigoProd;
             return ret;
         }
         if (cantUnidades <= 0) {
@@ -170,7 +170,7 @@ public class Obligatorio implements IObligatorio {
         
         if (lp.validarExistenciaCaja(nroCaja)) { 
             ret.resultado = Retorno.Resultado.ERROR_4;  
-            ret.valorString = "No se registra. El nÃºmero de caja "+nroCaja+" ya existe ";
+            ret.valorString = "No se registra. El numero de caja "+nroCaja+" ya existe ";
             return ret;
         }
 
@@ -209,7 +209,7 @@ public class Obligatorio implements IObligatorio {
         System.out.println("2- prod.capacidadOcupada: "+ this.capacidadOcupada);
         
         ret.resultado = Retorno.Resultado.OK;  
-        ret.valorString = "Se Agregan "+ cantUnidades + "unidades de stock al producto "+ producto.nombre;
+        ret.valorString = "Se Agregan "+ cantUnidades + " unidades de stock al producto "+ producto.nombre;
         
         return ret;
     }
@@ -236,7 +236,7 @@ public class Obligatorio implements IObligatorio {
         Retorno ret = new Retorno(Retorno.Resultado.NO_IMPLEMENTADA);
          if (!lcam.buscarelemento(matriculaCam)) {
             ret.resultado = Retorno.Resultado.ERROR_1;  
-            ret.valorString = "No se realiza el retiro. No existe un camiÃ³n de matrÃ­cula "+ matriculaCam;
+            ret.valorString = "No se realiza el retiro. No existe un camionn de matri­cula "+ matriculaCam;
             return ret;
         }
         if (!lc.buscarelemento(rutCliente)) {
@@ -246,7 +246,7 @@ public class Obligatorio implements IObligatorio {
         }
         if (!lp.buscarelemento(codProducto)) {
             ret.resultado = Retorno.Resultado.ERROR_3;  
-            ret.valorString = "No se realiza el retiro. No existe un producto de cÃ³digo " + codProducto;
+            ret.valorString = "No se realiza el retiro. No existe un producto de codigo " + codProducto;
             return ret;
         }
          
@@ -319,8 +319,8 @@ public class Obligatorio implements IObligatorio {
             }
         }
         if (cajaUnidades < cant){
-             //le.agregarFinal(camion, cliente, producto, cant);
-             auxCant-=cajaUnidades; 
+             le.agregarFinal(camion, cliente, producto, cajaUnidades);
+             auxCant-=cajaUnidades;
              nodoCaja cajaSiguiente = producto.pc.cima().getSiguiente();
              producto.pc.desapilar();
              producto.stockTotal -= cajaUnidades; 
@@ -459,8 +459,6 @@ public class Obligatorio implements IObligatorio {
                 
                 if(i>=1 && j>=1){
                    Matriz[i][j] = le.obtenerCantidadByClienteYProducto(Matriz[i][0], Matriz[0][j]);
-                   
-
                 }
                 
                 
@@ -470,13 +468,23 @@ public class Obligatorio implements IObligatorio {
         }
         for (i = 0; i < Matriz.length; i++) { 
           for (j = 0; j < Matriz[i].length; j++) {
-              System.out.print(Matriz[i][j] + " ");
+              
+              if(i==0){
+                System.out.print(Matriz[i][j] + "     ");
+              }else{
+                if(i>=1 ){
+                   System.out.print(Matriz[i][j] + "      ");
+                }else{
+                    System.out.print(Matriz[i][j] + " ");
+                }
+              }
+                
           }
           System.out.println();
         }
         
         ret.resultado = Retorno.Resultado.OK;
-        ret.valorString = "Se muestra el reporte de evÃ­os por productos";
+        ret.valorString = "Se muestra el reporte de envios por productos";
         return ret;
     }
 

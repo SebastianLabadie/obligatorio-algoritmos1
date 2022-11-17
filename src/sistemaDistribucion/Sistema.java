@@ -131,6 +131,8 @@ public class Sistema {
         Retorno r = s.altaDeStockDeProducto("MEC4452", 1, 50, 1000);
         p.ver(r.resultado, Retorno.Resultado.OK, r.valorString);
         
+        System.out.println("sistemaDistribucion.Sistema.pruebasAltaSotck()");
+        
         r = s.altaDeStockDeProducto("MEC4452", 8, 70, 1000);
         p.ver(r.resultado, Retorno.Resultado.ERROR_2, r.valorString);
        
@@ -175,25 +177,17 @@ public class Sistema {
         r=s.listarProductos();
         p.ver(r.resultado, Retorno.Resultado.OK, r.valorString);
 
-        /*
-        *********** Ejemplo de reporte de productos listados con su stock ****************
-        Cod. Prod: 1 - Shampoo Lor - 3000 unidades
-        Cod. Prod: 2 - Candado St - 2000 unidades
-        Cod. Prod: 3 - Bicicleta Ronda - 20 unidades
-        Cod. Prod: 4 - TelevisiÃ³n Marc - 30 unidades
-        Cod. Prod: 5 - Monopatin - 30 unidades
-        Cod. Prod: 6 - Laptop Stu - 50 unidades
-        Cod. Prod: 7 - Barra de ejercicio - 0 unidades
-         */
+       
     }
 
     public static void pruebasRetiroDeProducto(Obligatorio s, Prueba p) {
         Retorno r = s.retiroDeProducto("MEC4452", "111", 1, 2200);
         p.ver(r.resultado, Retorno.Resultado.OK, r.valorString);
         
-        
         r=s.retiroDeProducto("MEC4452", "111", 1, 600);
         p.ver(r.resultado, Retorno.Resultado.OK, r.valorString);
+        
+        System.out.println("sistemaDistribucion.Sistema.pruebasRetiroDeProducto()");
 
         r=s.retiroDeProducto("OOO1111", "222", 2, 2000);
         p.ver(r.resultado, Retorno.Resultado.OK, r.valorString);
@@ -225,17 +219,7 @@ public class Sistema {
         r=s.listarProductos();
         p.ver(r.resultado, Retorno.Resultado.OK, r.valorString);
 
-        /*
-        *********** Ejemplo de reporte de productos listados con su stock ****************
-        Cod. Prod: 1 - Shampoo Lor - 200 unidades
-        Cod. Prod: 2 - Candado St - 0 unidades
-        Cod. Prod: 3 - Bicicleta Ronda - 0 unidades
-        Cod. Prod: 4 - TelevisiÃ³n Marc - 30 unidades
-        Cod. Prod: 5 - Monopatin - 30 unidades
-        Cod. Prod: 6 - Laptop Stu - 10 unidades
-        Cod. Prod: 7 - Barra de ejercicio - 0 unidades
-         */
-        
+       
         r=s.listarOrdenesPendientes(1);
         p.ver(r.resultado, Retorno.Resultado.OK, r.valorString);
         
@@ -272,20 +256,14 @@ public class Sistema {
         r=s.listarProductos();
         p.ver(r.resultado, Retorno.Resultado.OK, r.valorString);
 
-        /*
-        *********** Ejemplo de reporte de productos listados con su stock ****************
-        Cod. Prod: 1 - Shampoo Lor - 200 unidades
-        Cod. Prod: 2 - Candado St - 1000 unidades
-        Cod. Prod: 3 - Bicicleta Ronda - 0 unidades
-        Cod. Prod: 4 - TelevisiÃ³n Marc - 30 unidades
-        Cod. Prod: 5 - Monopatin - 30 unidades
-        Cod. Prod: 6 - Laptop Stu - 10 unidades
-        Cod. Prod: 7 - Barra de ejercicio - 0 unidades
-         */
+       
     }
 
     public static void pruebasDeBaja(Obligatorio s, Prueba p) {
+        
         Retorno r = s.retiroDeProducto("MEC4452", "111", 1, 2200);
+        p.ver(r.resultado, Retorno.Resultado.OK, r.valorString);
+        
         r=s.eliminarCamion("COC3100");
         p.ver(r.resultado, Retorno.Resultado.OK, r.valorString);
         
@@ -300,13 +278,8 @@ public class Sistema {
         
         r=s.listarCamiones();
         p.ver(r.resultado, Retorno.Resultado.OK, r.valorString);
-        /*
-        *********** Ejemplo de reporte de camiones listados ****************
-        MEC4452 - 2000
-        OOO1111 - 4000
-        WEC3234 - 3000
-        TTT4500 - 1000 
-         */
+       
+        
 
         r=s.eliminarCliente("888");
         p.ver(r.resultado, Retorno.Resultado.OK, r.valorString);
@@ -319,32 +292,15 @@ public class Sistema {
         
         r=s.listarClientesOrdenado();
         p.ver(r.resultado, Retorno.Resultado.OK, r.valorString);
-        /*
-        *********** Ejemplo de reporte de clientes listados ordenados alfabeticamente ****************
-        Felipe MuÃ±oz - 333
-        Micaela PÃ©rez - 111
-        Perdro GonzÃ¡lez - 444  
-        Romina Ã�lvarez - 222
-         */
+       
+        
     }
 
     public static void pruebasDeReporteDeEnviosXProducto(Obligatorio s, Prueba p) {
         Retorno r =s.reporteDeEnviosDeProductos();
         p.ver(r.resultado, Retorno.Resultado.OK, r.valorString);
 
-        /*
-        *********** Ejemplo de reporte de envÃ­os por producto a cliente ****************
-        
-        
-                         333      111     444    222
-        Cod. Prod: 1      0        2       0      0
-        Cod. Prod: 2      0        0       0      2
-        Cod. Prod: 3      0        0       1      0
-        Cod. Prod: 4      0        0       0      0
-        Cod. Prod: 5      0        0       0      0
-        Cod. Prod: 6      1        0       0      0
-        Cod. Prod: 7      0        0       0      0
-         */
+       
     }
 
 }
