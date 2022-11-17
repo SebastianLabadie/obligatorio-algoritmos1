@@ -58,18 +58,18 @@ public class Obligatorio implements IObligatorio {
             //si tiene envios relacionados enviar error 2
             if(le.obtenerCantidadByCliente(rut)){
                 ret.resultado = Retorno.Resultado.ERROR_2;
-                ret.valorString = "Error cliente tiene envios asociados.";
+                ret.valorString = "No se elimina. El cliente "+rut+" tiene entregas realizadas";
                 return ret;
             }
             lc.borrarElemento(rut);
             ret.resultado = Retorno.Resultado.OK;
-            ret.valorString = "Cliente eliminado con exito.";
+            ret.valorString = "Se elimina el cliente " + rut;
             
             
             
         }else{
             ret.resultado = Retorno.Resultado.ERROR_1;
-            ret.valorString = "Error cliente no existe.";
+            ret.valorString = "No se elimina. No existe cliente con rut " + rut;
         }
         
         return ret;
@@ -108,7 +108,7 @@ public class Obligatorio implements IObligatorio {
         if(lcam.buscarelemento(matricula) == false)
         {
             ret.resultado = Retorno.Resultado.ERROR_1;
-            ret.valorString = "Numero de matricula no esta asignado a ningun camion"; 
+            ret.valorString = "No se elimina. No existe camion con matricula " + matricula; 
             return ret;
         }
         
@@ -116,13 +116,13 @@ public class Obligatorio implements IObligatorio {
         if (le.buscarelemento(matricula) == true)
         {
             ret.resultado = Retorno.Resultado.ERROR_2;
-            ret.valorString = "Camion Tiene entregas Realizadas";     
+            ret.valorString = "No se elimina. El camion " + matricula + " tiene entregas realizadas";     
             return ret;
         }
         
         lcam.borrarElemento(matricula);
         ret.resultado = Retorno.Resultado.OK;
-        ret.valorString = "Camion Eliminado Correctamente";
+        ret.valorString = "Se elimina el camiÃ³n "+matricula;
         return ret;
     }
 
@@ -153,12 +153,12 @@ public class Obligatorio implements IObligatorio {
 
         if (!lcam.buscarelemento(matriculaCamion)) {
             ret.resultado = Retorno.Resultado.ERROR_1;  
-            ret.valorString = "Error no existe camión con esa matricula.";
+            ret.valorString = "Error no existe camión con la matricula " + matriculaCamion;
             return ret;
         }
         if (!lp.buscarelemento(codigoProd)) {
             ret.resultado = Retorno.Resultado.ERROR_2;  
-            ret.valorString = "Error no existe producto con ese codigo.";
+            ret.valorString ="No se registra. No existe el producto de cÃ³digo " + codigoProd;
             return ret;
         }
         if (cantUnidades <= 0) {
@@ -170,14 +170,16 @@ public class Obligatorio implements IObligatorio {
         
         if (lp.validarExistenciaCaja(nroCaja)) { 
             ret.resultado = Retorno.Resultado.ERROR_4;  
-            ret.valorString = "Error ya existe ese número de caja. ";
+            ret.valorString = "No se registra. El nÃºmero de caja "+nroCaja+" ya existe ";
             return ret;
         }
 
+        
         //si capacidad de fabrica esta llena se debe lanzar error
         if (this.capacidadOcupada >= this.capacidadCajas) {
+            
          ret.resultado = Retorno.Resultado.ERROR_5;  
-         ret.valorString = "Error la capacidad total de la fabrica se encuentra ocupada.";
+         ret.valorString = "No se registra. La fabrica tiene un tope de "+ this.capacidadCajas+" cajas";
          return ret;
         }
         
@@ -207,7 +209,7 @@ public class Obligatorio implements IObligatorio {
         System.out.println("2- prod.capacidadOcupada: "+ this.capacidadOcupada);
         
         ret.resultado = Retorno.Resultado.OK;  
-        ret.valorString = "Caja despachada correctamente";
+        ret.valorString = "Se Agregan "+ cantUnidades + "unidades de stock al producto "+ producto.nombre;
         
         return ret;
     }
@@ -234,17 +236,17 @@ public class Obligatorio implements IObligatorio {
         Retorno ret = new Retorno(Retorno.Resultado.NO_IMPLEMENTADA);
          if (!lcam.buscarelemento(matriculaCam)) {
             ret.resultado = Retorno.Resultado.ERROR_1;  
-            ret.valorString = "Error no existe camión con esa matricula.";
+            ret.valorString = "No se realiza el retiro. No existe un camiÃ³n de matrÃ­cula "+ matriculaCam;
             return ret;
         }
         if (!lc.buscarelemento(rutCliente)) {
             ret.resultado = Retorno.Resultado.ERROR_2;
-            ret.valorString = "Error no existe cliente con ese rut.";
+            ret.valorString = "No se realiza el retiro. No existe cliente de rut " + rutCliente;
             return ret;
         }
         if (!lp.buscarelemento(codProducto)) {
             ret.resultado = Retorno.Resultado.ERROR_3;  
-            ret.valorString = "Error no existe producto con ese codigo.";
+            ret.valorString = "No se realiza el retiro. No existe un producto de cÃ³digo " + codProducto;
             return ret;
         }
          
@@ -274,18 +276,21 @@ public class Obligatorio implements IObligatorio {
         System.out.println("2- prod.capacidadOcupada: "+ this.capacidadOcupada);
        
         ret.resultado = Retorno.Resultado.OK;  
-        ret.valorString = "Retiro realizado correctamente.";
+        ret.valorString = "Se retiran "+ cant +" unidades del producto "+ producto.nombre;
 
         return ret;
     }
     
     //caja puede ser nulla
     public void manejoCajasREC(nodoCaja caja,int cant, nodoCamion camion, nodoCliente cliente, nodoProducto producto, boolean llamadaOE){
-        
+        Retorno ret = new Retorno(Retorno.Resultado.NO_IMPLEMENTADA);
         //si no hay stock o la caja es nula directamente se crea una orden de retiro en espera
         if(producto.stockTotal == 0 || caja == null){
             if(!llamadaOE){
              producto.ce.encolar(camion, cliente, producto, cant);
+             ret.resultado = Retorno.Resultado.OK;  
+             ret.valorString = "Se genera una orden pendiente por "+ cant +"unidades del producto "+ producto.nombre;
+             
             }
             return;
         }
@@ -374,7 +379,9 @@ public class Obligatorio implements IObligatorio {
     public Retorno ultimoProductoRegistrado() {
         Retorno ret = new Retorno(Retorno.Resultado.OK);
         nodoProducto prod = lp.getUltimo();
-        System.out.println("cod: "+prod.codigoProd+" nombre: "+prod.nombre + " descripcion: "+prod.descripcion);
+        ret.resultado = Retorno.Resultado.OK;
+        ret.valorString="cod: "+prod.codigoProd+" nombre: "+prod.nombre + " descripcion: "+prod.descripcion;
+        
         return ret;
     }
     @Override
@@ -389,7 +396,7 @@ public class Obligatorio implements IObligatorio {
         nodoEnvio aux = le.getPrimero();
         le.obtenerElementoByCodigoProd(codProd, aux);
         le.mostrar();
-        ret.resultado = Retorno.Resultado.OK;  
+         
         ret.valorString = "Envios";
         
         
@@ -401,7 +408,11 @@ public class Obligatorio implements IObligatorio {
         Retorno ret = new Retorno(Retorno.Resultado.OK);
         nodoProducto a = lp.obtenerElemento(codProd);
         if (a !=null){
+            ret.resultado = Retorno.Resultado.OK; 
+            ret.valorString="Ordenes Pendientes";
             a.ce.mostrar();
+            
+            
         }
         else
         {
@@ -464,7 +475,8 @@ public class Obligatorio implements IObligatorio {
           System.out.println();
         }
         
-         
+        ret.resultado = Retorno.Resultado.OK;
+        ret.valorString = "Se muestra el reporte de evÃ­os por productos";
         return ret;
     }
 

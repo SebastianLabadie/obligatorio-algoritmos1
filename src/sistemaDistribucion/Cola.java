@@ -128,7 +128,7 @@ public class Cola implements ICola {
                 
             while (aux != null) {
                 
-                System.out.println(aux.getProducto().nombre+ " - " + aux.getCliente().nombre+ " - ");
+                System.out.println(aux.getProducto().nombre+ " - " + aux.getCantidadUnidades());
                 aux = aux.getSiguiente();
             }
         } else {

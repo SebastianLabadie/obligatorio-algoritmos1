@@ -32,7 +32,7 @@ public class Sistema {
         p.ver(r.resultado, Retorno.Resultado.ERROR_1, r.valorString);
         
         
-        r = s.crearSistemaDeDistribucion(10);
+        r = s.crearSistemaDeDistribucion(9);
         p.ver(r.resultado, Retorno.Resultado.OK, r.valorString);
     }
 
@@ -80,7 +80,8 @@ public class Sistema {
         r = s.agregarCamion("TTT4500", 3000);
         p.ver(r.resultado, Retorno.Resultado.OK, r.valorString);
         
-        r = s.agregarCamion("IOE2893", 1200);
+        //este
+        r = s.agregarCamion("IOE2893", 0);
         p.ver(r.resultado, Retorno.Resultado.ERROR_2, r.valorString);
         
         r = s.agregarCamion("COC3100", 100);
@@ -127,28 +128,52 @@ public class Sistema {
     }
 
     public static void pruebasAltaSotck(Obligatorio s, Prueba p) {
-        p.ver(s.altaDeStockDeProducto("MEC4452", 1, 50, 1000).resultado, Retorno.Resultado.OK, "Se agregan 1000 unidades de stock al producto Shampoo Lor");
-        p.ver(s.altaDeStockDeProducto("OOO1111", 1, 60, 2000).resultado, Retorno.Resultado.OK, "Se agregan 2000 unidades de stock al producto Shampoo Lor");
+        Retorno r = s.altaDeStockDeProducto("MEC4452", 1, 50, 1000);
+        p.ver(r.resultado, Retorno.Resultado.OK, r.valorString);
+        
+        r = s.altaDeStockDeProducto("MEC4452", 8, 70, 1000);
+        p.ver(r.resultado, Retorno.Resultado.ERROR_2, r.valorString);
+       
 
-        p.ver(s.altaDeStockDeProducto("MEC4452", 8, 70, 1000).resultado, Retorno.Resultado.ERROR_2, "No se registra. No existe el producto de cÃ³digo 8");
-        p.ver(s.altaDeStockDeProducto("MEC4452", 3, 2, 20).resultado, Retorno.Resultado.OK, "Se agregan 20 unidades de stock al producto Bicicleta Ronda");
-        p.ver(s.altaDeStockDeProducto("OOO1111", 6, 17, 50).resultado, Retorno.Resultado.OK, "Se agregan 50 unidades de stock al producto Laptop Stu");
+        r = s.altaDeStockDeProducto("MEC4452", 3, 2, 20);
+        p.ver(r.resultado, Retorno.Resultado.OK,r.valorString);
+        
+        r = s.altaDeStockDeProducto("OOO1111", 6, 17, 50);
+        p.ver(r.resultado, Retorno.Resultado.OK, r.valorString);
 
-        p.ver(s.altaDeStockDeProducto("XCX5622", 1, 11, 50).resultado, Retorno.Resultado.ERROR_1, "No se registra. No existe el camion de matricula XCX5622");
-        p.ver(s.altaDeStockDeProducto("WEC3234", 2, 13, 1500).resultado, Retorno.Resultado.OK, "Se agregan 1500 unidades de stock al producto Candado St");
-        p.ver(s.altaDeStockDeProducto("WEC3234", 2, 14, 500).resultado, Retorno.Resultado.OK, "Se agregan 500 unidades de stock al producto Candado St");
+        r=s.altaDeStockDeProducto("XCX5622", 1, 11, 50);
+        p.ver(r.resultado, Retorno.Resultado.ERROR_1,r.valorString);
+        
+        r=s.altaDeStockDeProducto("WEC3234", 2, 13, 1500);
+        p.ver(r.resultado, Retorno.Resultado.OK,r.valorString);
+         
+        r = s.altaDeStockDeProducto("WEC3234", 2, 14, 500);
+        p.ver(r.resultado, Retorno.Resultado.OK,r.valorString);
+        
+        r =s.altaDeStockDeProducto("WEC3234", 2, 19, 0);
+        p.ver(r.resultado, Retorno.Resultado.ERROR_3,r.valorString);
+        
+        r=s.altaDeStockDeProducto("TTT4500", 5, 99, 30);
+        p.ver(r.resultado, Retorno.Resultado.OK,r.valorString);
+        
+         
+        r=s.altaDeStockDeProducto("WEC3234", 2, 50, 90);
+        p.ver(r.resultado, Retorno.Resultado.ERROR_4,r.valorString);
+        
+        r=s.altaDeStockDeProducto("TTT4500", 4, 108, 10);
+        p.ver(r.resultado, Retorno.Resultado.OK,r.valorString);
+        
+        r=s.altaDeStockDeProducto("TTT4500", 4, 109, 10);
+        p.ver(r.resultado, Retorno.Resultado.OK,r.valorString);
+        
+        r= s.altaDeStockDeProducto("TTT4500", 4, 110, 10);
+        p.ver(r.resultado, Retorno.Resultado.OK, r.valorString);
+        
+        r=s.altaDeStockDeProducto("TTT4500", 4, 111, 10);
+        p.ver(r.resultado, Retorno.Resultado.ERROR_5, r.valorString);
 
-        p.ver(s.altaDeStockDeProducto("WEC3234", 2, 19, 0).resultado, Retorno.Resultado.ERROR_3, "No se registra. Las unidades no puedes ser <=3");
-        p.ver(s.altaDeStockDeProducto("TTT4500", 5, 99, 30).resultado, Retorno.Resultado.OK, "Se agregan 30 unidades de stock al producto Monopatin");
-
-        p.ver(s.altaDeStockDeProducto("WEC3234", 2, 50, 90).resultado, Retorno.Resultado.ERROR_4, "No se registra. El nÃºmero de caja 50 ya existe");
-        p.ver(s.altaDeStockDeProducto("TTT4500", 4, 108, 10).resultado, Retorno.Resultado.OK, "Se agregan 10 unidades de stock al producto TelevisiÃ³n Marc");
-        p.ver(s.altaDeStockDeProducto("TTT4500", 4, 109, 10).resultado, Retorno.Resultado.OK, "Se agregan 10 unidades de stock al producto TelevisiÃ³n Marc");
-        p.ver(s.altaDeStockDeProducto("TTT4500", 4, 110, 10).resultado, Retorno.Resultado.OK, "Se agregan 10 unidades de stock al producto TelevisiÃ³n Marc");
-
-        p.ver(s.altaDeStockDeProducto("TTT4500", 4, 111, 10).resultado, Retorno.Resultado.ERROR_5, "No se registra. La fabrica tiene un tope de 10 cajas");
-
-        p.ver(s.listarProductos().resultado, Retorno.Resultado.OK, "Se listan 7 productos");
+        r=s.listarProductos();
+        p.ver(r.resultado, Retorno.Resultado.OK, r.valorString);
 
         /*
         *********** Ejemplo de reporte de productos listados con su stock ****************
@@ -163,24 +188,42 @@ public class Sistema {
     }
 
     public static void pruebasRetiroDeProducto(Obligatorio s, Prueba p) {
+        Retorno r = s.retiroDeProducto("MEC4452", "111", 1, 2200);
+        p.ver(r.resultado, Retorno.Resultado.OK, r.valorString);
+        
+        
+        r=s.retiroDeProducto("MEC4452", "111", 1, 600);
+        p.ver(r.resultado, Retorno.Resultado.OK, r.valorString);
 
-        p.ver(s.retiroDeProducto("MEC4452", "111", 1, 2200).resultado, Retorno.Resultado.OK, "Se retiran 2200 unidades del producto Shampoo Lor");
-        p.ver(s.retiroDeProducto("MEC4452", "111", 1, 600).resultado, Retorno.Resultado.OK, "Se retiran 600 unidades del producto Shampoo Lor");
+        r=s.retiroDeProducto("OOO1111", "222", 2, 2000);
+        p.ver(r.resultado, Retorno.Resultado.OK, r.valorString);
+        
+        r=s.retiroDeProducto("OOO1111", "222", 2, 1000);
+        p.ver(r.resultado, Retorno.Resultado.OK, r.valorString);
 
-        p.ver(s.retiroDeProducto("OOO1111", "222", 2, 2000).resultado, Retorno.Resultado.OK, "Se retiran 2000 unidades del producto Candado St");
-        p.ver(s.retiroDeProducto("OOO1111", "222", 2, 1000).resultado, Retorno.Resultado.OK, "Se genera una orden pendiente por 1000 unidades del producto Candado St");
+        r=s.retiroDeProducto("MEC4452", "333", 6, 40);
+        p.ver(r.resultado, Retorno.Resultado.OK, r.valorString);
 
-        p.ver(s.retiroDeProducto("MEC4452", "333", 6, 40).resultado, Retorno.Resultado.OK, "Se retiran 40 unidades del producto Laptop Stu");
+        r=s.retiroDeProducto("VND2344", "333", 6, 40);
+        p.ver(r.resultado, Retorno.Resultado.ERROR_1, r.valorString);
+        
+        r=s.retiroDeProducto("MEC4452", "190", 6, 40);
+        p.ver(r.resultado, Retorno.Resultado.ERROR_2,r.valorString);
+        
+        r=s.retiroDeProducto("MEC4452", "333", 10, 40);
+        p.ver(r.resultado, Retorno.Resultado.ERROR_3,r.valorString);
 
-        p.ver(s.retiroDeProducto("VND2344", "333", 6, 40).resultado, Retorno.Resultado.ERROR_1, "No se realiza el retiro. No existe un camiÃ³n de matrÃ­cula VND2344");
-        p.ver(s.retiroDeProducto("MEC4452", "190", 6, 40).resultado, Retorno.Resultado.ERROR_2, "No se realiza el retiro. No existe cliente de rut 190");
-        p.ver(s.retiroDeProducto("MEC4452", "333", 10, 40).resultado, Retorno.Resultado.ERROR_3, "No se realiza el retiro. No existe un producto de cÃ³digo 10");
-
-        p.ver(s.retiroDeProducto("TTT4500", "444", 7, 1000).resultado, Retorno.Resultado.OK, "Se genera una orden pendiente por 1000 unidades del producto Barra de ejercicio");
-        p.ver(s.retiroDeProducto("TTT4500", "444", 3, 30).resultado, Retorno.Resultado.OK, "Se retiran 20 unidades del producto Bicicleta Ronda. Se genera una orden pendiente por 10 unidades del producto Bicicleta Ronda");
-        p.ver(s.retiroDeProducto("TTT4500", "444", 3, 30).resultado, Retorno.Resultado.OK, "Se genera una orden pendiente por 30 unidades del producto Bicicleta Ronda");
-
-        p.ver(s.listarProductos().resultado, Retorno.Resultado.OK, "Se listan 7 productos");
+        r=s.retiroDeProducto("TTT4500", "444", 7, 1000);
+        p.ver(r.resultado, Retorno.Resultado.OK, r.valorString);
+        
+        r=s.retiroDeProducto("TTT4500", "444", 3, 30);
+        p.ver(r.resultado, Retorno.Resultado.OK, r.valorString);
+        
+        r=s.retiroDeProducto("TTT4500", "444", 3, 30);
+        p.ver(r.resultado, Retorno.Resultado.OK, r.valorString);
+        
+        r=s.listarProductos();
+        p.ver(r.resultado, Retorno.Resultado.OK, r.valorString);
 
         /*
         *********** Ejemplo de reporte de productos listados con su stock ****************
@@ -192,20 +235,42 @@ public class Sistema {
         Cod. Prod: 6 - Laptop Stu - 10 unidades
         Cod. Prod: 7 - Barra de ejercicio - 0 unidades
          */
-        p.ver(s.listarOrdenesPendientes(1).resultado, Retorno.Resultado.OK, "Ordenes pendientes del producto 1: No hay");
-        p.ver(s.listarOrdenesPendientes(2).resultado, Retorno.Resultado.OK, "Ordenes pendientes del producto 2: Orden pendiente:1000u");
-        p.ver(s.listarOrdenesPendientes(3).resultado, Retorno.Resultado.OK, "Ordenes pendientes del producto 3: Orden pendiente:10u - Orden pendiente:30u");
-        p.ver(s.listarOrdenesPendientes(4).resultado, Retorno.Resultado.OK, "Ordenes pendientes del producto 4: No hay");
-        p.ver(s.listarOrdenesPendientes(5).resultado, Retorno.Resultado.OK, "Ordenes pendientes del producto 5: No hay");
-        p.ver(s.listarOrdenesPendientes(6).resultado, Retorno.Resultado.OK, "Ordenes pendientes del producto 6: No hay");
-        p.ver(s.listarOrdenesPendientes(7).resultado, Retorno.Resultado.OK, "Ordenes pendientes del producto 7: Orden pendiente:1000u");
-        p.ver(s.listarOrdenesPendientes(11).resultado, Retorno.Resultado.ERROR_1, "No existe el producto de cÃ³digo 11");
+        
+        r=s.listarOrdenesPendientes(1);
+        p.ver(r.resultado, Retorno.Resultado.OK, r.valorString);
+        
+        r=s.listarOrdenesPendientes(2);
+        p.ver(r.resultado, Retorno.Resultado.OK,r.valorString);
+        
+        r=s.listarOrdenesPendientes(3);
+        p.ver(r.resultado, Retorno.Resultado.OK, r.valorString);
+       
+        r=s.listarOrdenesPendientes(4);
+        p.ver(r.resultado, Retorno.Resultado.OK, r.valorString);
+        
+        r=s.listarOrdenesPendientes(5);
+        p.ver(r.resultado, Retorno.Resultado.OK, r.valorString);
+        
+        r=s.listarOrdenesPendientes(6);
+        p.ver(r.resultado, Retorno.Resultado.OK,r.valorString);
+        
+        r=s.listarOrdenesPendientes(7);
+        p.ver(r.resultado, Retorno.Resultado.OK, r.valorString);
+        
+        r=s.listarOrdenesPendientes(11);
+        p.ver(r.resultado, Retorno.Resultado.ERROR_1, r.valorString);
+        
+        r=s.ultimoProductoRegistrado();
+        p.ver(r.resultado, Retorno.Resultado.OK,r.valorString);
 
-        p.ver(s.ultimoProductoRegistrado().resultado, Retorno.Resultado.OK, "Producto: Cod. Prod: 7 - Barra de ejercicio - 0 unidades");
-
-        p.ver(s.altaDeStockDeProducto("MEC4452", 2, 194, 2000).resultado, Retorno.Resultado.OK, "Se agregan 2000 unidades de stock al producto Candado St. Se hace retiro pendiente de 1000u ");
-        p.ver(s.listarOrdenesPendientes(2).resultado, Retorno.Resultado.OK, "Ordenes pendientes del producto 2: No hay");
-        p.ver(s.listarProductos().resultado, Retorno.Resultado.OK, "Se listan 7 productos");
+        r=s.altaDeStockDeProducto("MEC4452", 2, 194, 2000);
+        p.ver(r.resultado, Retorno.Resultado.OK,r.valorString);
+        
+        r=s.listarOrdenesPendientes(2);
+        p.ver(r.resultado, Retorno.Resultado.OK, r.valorString);
+        
+        r=s.listarProductos();
+        p.ver(r.resultado, Retorno.Resultado.OK, r.valorString);
 
         /*
         *********** Ejemplo de reporte de productos listados con su stock ****************
@@ -220,14 +285,21 @@ public class Sistema {
     }
 
     public static void pruebasDeBaja(Obligatorio s, Prueba p) {
-
-        p.ver(s.eliminarCamion("COC3100").resultado, Retorno.Resultado.OK, "Se elimina el camiÃ³n COC3100");
-
-        p.ver(s.eliminarCamion("TUT3100").resultado, Retorno.Resultado.ERROR_1, "No se elimina. No existe camion con matricula TUT3100");
-        p.ver(s.eliminarCamion("MEC4452").resultado, Retorno.Resultado.ERROR_2, "No se elimina. El camion MEC4452 tiene enttregas realizadas");
-        p.ver(s.eliminarCamion("OOO1111").resultado, Retorno.Resultado.ERROR_2, "No se elimina. El camion OOO1111 tiene enttregas realizadas");
-
-        p.ver(s.listarCamiones().resultado, Retorno.Resultado.OK, "Se listan 4 camiones");
+        Retorno r = s.retiroDeProducto("MEC4452", "111", 1, 2200);
+        r=s.eliminarCamion("COC3100");
+        p.ver(r.resultado, Retorno.Resultado.OK, r.valorString);
+        
+        r=s.eliminarCamion("TUT3100");
+        p.ver(r.resultado, Retorno.Resultado.ERROR_1, r.valorString);
+        
+        r=s.eliminarCamion("MEC4452");
+        p.ver(r.resultado, Retorno.Resultado.ERROR_2, r.valorString);
+        
+        r=s.eliminarCamion("OOO1111");
+        p.ver(r.resultado, Retorno.Resultado.ERROR_2,r.valorString);
+        
+        r=s.listarCamiones();
+        p.ver(r.resultado, Retorno.Resultado.OK, r.valorString);
         /*
         *********** Ejemplo de reporte de camiones listados ****************
         MEC4452 - 2000
@@ -236,12 +308,17 @@ public class Sistema {
         TTT4500 - 1000 
          */
 
-        p.ver(s.eliminarCliente("888").resultado, Retorno.Resultado.OK, "Se elimina el cliente 888");
+        r=s.eliminarCliente("888");
+        p.ver(r.resultado, Retorno.Resultado.OK, r.valorString);
 
-        p.ver(s.eliminarCliente("123").resultado, Retorno.Resultado.ERROR_1, "No se elimina. No existe cliente con rut 123");
-        p.ver(s.eliminarCliente("111").resultado, Retorno.Resultado.ERROR_2, "No se elimina. El cliente 111 tiene entregas realizadas");
-
-        p.ver(s.listarClientesOrdenado().resultado, Retorno.Resultado.OK, "Se listan 5 clientes");
+        r=s.eliminarCliente("123");
+        p.ver(r.resultado, Retorno.Resultado.ERROR_1,r.valorString);
+        
+        r=s.eliminarCliente("111");
+        p.ver(r.resultado, Retorno.Resultado.ERROR_2,r.valorString);
+        
+        r=s.listarClientesOrdenado();
+        p.ver(r.resultado, Retorno.Resultado.OK, r.valorString);
         /*
         *********** Ejemplo de reporte de clientes listados ordenados alfabeticamente ****************
         Felipe MuÃ±oz - 333
@@ -252,8 +329,8 @@ public class Sistema {
     }
 
     public static void pruebasDeReporteDeEnviosXProducto(Obligatorio s, Prueba p) {
-
-        p.ver(s.reporteDeEnviosDeProductos().resultado, Retorno.Resultado.OK, "Se muestra el reporte de evÃ­os por productos");
+        Retorno r =s.reporteDeEnviosDeProductos();
+        p.ver(r.resultado, Retorno.Resultado.OK, r.valorString);
 
         /*
         *********** Ejemplo de reporte de envÃ­os por producto a cliente ****************
