@@ -118,7 +118,8 @@ public class LProducto implements ILProducto {
                 System.out.println("    Codigo Prod: "+aux.getCodigoProd());
                 System.out.println("    Nombre: "+aux.getNombre());
                 System.out.println("    Descripcion: "+aux.getDescripcion());
-                System.out.println("");
+                System.out.println("    Unidades: "+aux.stockTotal);
+                System.out.println(" ");
                 aux = aux.getSiguiente();
             }
         } else {

@@ -211,6 +211,8 @@ public class SistemaJuegoDePrueba {
         p.ver(s.eliminarCliente("111").resultado, Retorno.Resultado.ERROR_2, "No se elimina. El cliente 111 tiene entregas realizadas");
 
         p.ver(s.listarClientesOrdenado().resultado, Retorno.Resultado.OK, "Se listan 5 clientes");
+        
+        p.ver(s.listarEnvíosDeProducto(1).resultado, Retorno.Resultado.OK, "Se listan los envios del producto 1");
         /*
         *********** Ejemplo de reporte de clientes listados ordenados alfabeticamente ****************
         Felipe MuÃ±oz - 333
@@ -237,6 +239,9 @@ public class SistemaJuegoDePrueba {
         Cod. Prod: 6      1        0       0      0
         Cod. Prod: 7      0        0       0      0
          */
+        
+        p.ver(s.Productoconmayorcantidaddeenvios().resultado, Retorno.Resultado.OK, "Productoconmayorcantidaddeenvios");
+        p.ver(s.ListarCamionesconlamayorcanttoneladasMaxSoportadas().resultado,Retorno.Resultado.OK,"ListarCamionesconlamayorcanttoneladasMaxSoportadas");   
     }
 
 }

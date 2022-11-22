@@ -116,9 +116,9 @@ public class LCamion implements ILCamion {
     
     public String mostrarRECPrimeroalUltimo(nodoCamion primero, nodoCamion ultimo) {
         if (primero == ultimo) {
-            return "    Matricula: " + ultimo.getMatricula();
+            return "    Matricula: " + ultimo.getMatricula() + " Toneladas:" + ultimo.getToneladasMaxSoportadas();
         } else {
-            return "    Matricula: "+primero.getMatricula()+ "\n" + mostrarRECPrimeroalUltimo(primero.siguiente, ultimo);
+            return "    Matricula: "+primero.getMatricula()+" Toneladas: "+ primero.getToneladasMaxSoportadas()+ "\n" + mostrarRECPrimeroalUltimo(primero.siguiente, ultimo);
         }
     }
 
@@ -216,4 +216,31 @@ public class LCamion implements ILCamion {
         return this.getCantnodos();
     }
 
+    @Override
+    public void MostrarCamionesConMaxToneladas() {
+        nodoCamion aux = this.getPrimero();
+        nodoCamion aux1 = null;
+        
+        int Cantidad =0;
+        if (!this.esVacia()) {
+            while (aux != null) {
+                
+                if (Cantidad <= aux.toneladasMaxSoportadas)
+                {
+                    Cantidad = aux.toneladasMaxSoportadas;
+                    aux1 = aux;
+                }
+                
+                aux = aux.getSiguiente();
+                
+            }
+            
+            System.out.println("La matricula del camion con mayor tonelada es :" + aux1.matricula + " que contiene " + aux1.toneladasMaxSoportadas);
+            
+            
+        } else {
+            System.out.println("La lista de camiones esta vacia.");
+        }
+        System.out.println();
+    }
 }

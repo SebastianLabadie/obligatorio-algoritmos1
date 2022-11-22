@@ -36,5 +36,6 @@ public interface IObligatorio {
      //pre:Sistema debe estar creado        post:Muestra una matriz con la cantidad de unidades por producto enviadas a cada cliente
     public Retorno reporteDeEnviosDeProductos();
     
-    
+    public Retorno Productoconmayorcantidaddeenvios();
+    public Retorno ListarCamionesconlamayorcanttoneladasMaxSoportadas();
 }

@@ -16,6 +16,7 @@ public interface ILCamion {
     public void agregarFinal(String matricula, int toneladasMaxSoportadas);            
     public void borrarFin();      
     //public void agregarOrd(String matricula, int toneladasMaxSoportadas);
-    public void borrarElemento(String matricula);    
+    public void borrarElemento(String matricula);
+    public void MostrarCamionesConMaxToneladas();    
     public int cantElementos();   
 }

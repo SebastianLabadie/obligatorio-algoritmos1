@@ -12,6 +12,7 @@ public interface ILEnvio {
     public void borrarInicio(); 
     public boolean buscarelemento(String matricula);
     public void obtenerElementoByCodigoProd(int CodigoProd,nodoEnvio aux);
+    public int obtenerCantidadByProducto(int CodProd);
     public void mostrar();
     public void mostrarREC(nodoEnvio l);    
     public void vaciar();    

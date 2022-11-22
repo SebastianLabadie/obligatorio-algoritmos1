@@ -371,6 +371,7 @@ public class Obligatorio implements IObligatorio {
         Retorno ret = new Retorno(Retorno.Resultado.NO_IMPLEMENTADA);
         ret.resultado = Retorno.Resultado.OK;
         ret.valorString="Se listan "+lp.getCantnodos()+" productos.";
+        
         lp.mostrar();
         return ret;
     }
@@ -387,6 +388,7 @@ public class Obligatorio implements IObligatorio {
     @Override
     public Retorno listarEnvíosDeProducto(int codProd) {
         Retorno ret = new Retorno(Retorno.Resultado.NO_IMPLEMENTADA);
+        ret.resultado = Retorno.Resultado.OK;
         if (!lp.buscarelemento(codProd))
         {
              ret.resultado = Retorno.Resultado.ERROR_1;
@@ -395,7 +397,7 @@ public class Obligatorio implements IObligatorio {
         }
         nodoEnvio aux = le.getPrimero();
         le.obtenerElementoByCodigoProd(codProd, aux);
-        le.mostrar();
+        //le.mostrar();
          
         ret.valorString = "Envios";
         
@@ -487,5 +489,50 @@ public class Obligatorio implements IObligatorio {
         ret.valorString = "Se muestra el reporte de envios por productos";
         return ret;
     }
+
+    @Override
+    public Retorno Productoconmayorcantidaddeenvios() {
+        Retorno ret = new Retorno(Retorno.Resultado.NO_IMPLEMENTADA);
+        ret.resultado = Retorno.Resultado.OK;
+               
+        
+        nodoProducto p = lp.getPrimero();
+        nodoProducto pMayorCantenvios = null;
+        int cantMayor=0;
+        calcularProductoMayorCantEnviosREC(p,cantMayor,pMayorCantenvios);
+        
+        
+        return ret;
+    }
+    
+    public void calcularProductoMayorCantEnviosREC(nodoProducto p, int cantMayor,nodoProducto pMayorCantEnvios){
+        if (p != null) {
+                int cantidad = le.obtenerCantidadByProducto(p.codigoProd);
+                //System.out.println("producto: "+p.nombre+" cantidad: "+cantidad);
+                
+                if (cantidad > cantMayor) {
+                    cantMayor = cantidad;
+                    pMayorCantEnvios = p;
+                }
+                
+                nodoProducto sigProducto = p.getSiguiente();
+                if(sigProducto != null){
+                    calcularProductoMayorCantEnviosREC(sigProducto,cantMayor,pMayorCantEnvios);
+                }else{
+                    System.out.println("Producto con mayor cantidad de envios:");
+                    System.out.println("    Nombre: "+pMayorCantEnvios.nombre+" Envios: "+cantMayor);
+                }
+            }
+    }
+
+    @Override
+    public Retorno ListarCamionesconlamayorcanttoneladasMaxSoportadas() {
+        Retorno ret = new Retorno(Retorno.Resultado.NO_IMPLEMENTADA);
+        ret.resultado = Retorno.Resultado.OK;
+        ret.valorString="Se listan "+lcam.getCantnodos()+" camiones.";
+        lcam.MostrarCamionesConMaxToneladas();
+        return ret;
+    }
+    
 
 }

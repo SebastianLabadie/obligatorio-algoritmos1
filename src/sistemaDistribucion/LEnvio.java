@@ -248,7 +248,7 @@ public class LEnvio implements ILEnvio {
     @Override
     public void obtenerElementoByCodigoProd(int CodigoProd,nodoEnvio aux) {
        
-        
+            
             if (aux.getProducto().codigoProd == CodigoProd) {
                 System.out.println(aux.getCamion().matricula + " - " + aux.getCliente().nombre + " - " + aux.getCantidadUnidades());
             }
@@ -299,8 +299,28 @@ public class LEnvio implements ILEnvio {
         return Cantidad;
        
     }
-
-   
+    
+    @Override
+    public int obtenerCantidadByProducto(int CodProd){
+        nodoEnvio aux = this.getPrimero();
+        
+        int Cantidad = 0;
+        if (!this.esVacia()) {
+            while (aux != null) {
+                
+                if (aux.producto.getCodigoProd()==CodProd){
+                    Cantidad += 1;
+                }
+                
+                aux = aux.getSiguiente();
+            }
+            
+        } else {
+            System.out.println("La lista de productos esta vacia.");
+        }
+        return Cantidad;
+       
+    }
 
    
 
