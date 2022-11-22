@@ -191,22 +191,22 @@ public class Obligatorio implements IObligatorio {
         producto.pc.apilar(nroCaja, cantUnidades);
         this.capacidadOcupada +=1;
         
-        System.out.println("1- prod.stockTotal: "+ producto.stockTotal);
+        //System.out.println("1- prod.stockTotal: "+ producto.stockTotal);
         if(producto.pc.cima() != null){
-         System.out.println("1- prod.apilar: "+ producto.pc.cima().getCantUnidades());
+         //System.out.println("1- prod.apilar: "+ producto.pc.cima().getCantUnidades());
         }
-        System.out.println("1- prod.capacidadOcupada: "+ this.capacidadOcupada);
+        //System.out.println("1- prod.capacidadOcupada: "+ this.capacidadOcupada);
         
         //ver si hay ordenes en espera para ese producto y generar envio
         nodoEnvio ordenEspera = producto.ce.fondo();
         nodoCaja caja = producto.pc.cima();
         manejoOrdenREC(ordenEspera,caja);
         
-        System.out.println("2- prod.stockTotal: "+ producto.stockTotal);
+        //System.out.println("2- prod.stockTotal: "+ producto.stockTotal);
         if(producto.pc.cima() != null){
-         System.out.println("2- prod.apilar: "+ producto.pc.cima().getCantUnidades()); 
+         //System.out.println("2- prod.apilar: "+ producto.pc.cima().getCantUnidades()); 
         }
-        System.out.println("2- prod.capacidadOcupada: "+ this.capacidadOcupada);
+        //System.out.println("2- prod.capacidadOcupada: "+ this.capacidadOcupada);
         
         ret.resultado = Retorno.Resultado.OK;  
         ret.valorString = "Se Agregan "+ cantUnidades + " unidades de stock al producto "+ producto.nombre;
@@ -259,21 +259,21 @@ public class Obligatorio implements IObligatorio {
         nodoProducto producto = lp.obtenerElemento(codProducto);
         
         
-        System.out.println("1- prod.stockTotal: "+ producto.stockTotal); 
+        //System.out.println("1- prod.stockTotal: "+ producto.stockTotal); 
         if(producto.pc.cima() != null){
-         System.out.println("1- prod.apilar: "+ producto.pc.cima().getCantUnidades());
+         //System.out.println("1- prod.apilar: "+ producto.pc.cima().getCantUnidades());
         }
-        System.out.println("1- prod.capacidadOcupada: "+ this.capacidadOcupada);
+        //System.out.println("1- prod.capacidadOcupada: "+ this.capacidadOcupada);
         
         //buscar cantidad en ultima caja
         nodoCaja caja = producto.pc.cima();
         manejoCajasREC(caja, cant, camion, cliente, producto,false);
 
-        System.out.println("2- prod.stockTotal: "+ producto.stockTotal);
+        //System.out.println("2- prod.stockTotal: "+ producto.stockTotal);
         if(producto.pc.cima() != null){
-         System.out.println("2- prod.apilar: "+ producto.pc.cima().getCantUnidades());
+         //System.out.println("2- prod.apilar: "+ producto.pc.cima().getCantUnidades());
         }
-        System.out.println("2- prod.capacidadOcupada: "+ this.capacidadOcupada);
+        //System.out.println("2- prod.capacidadOcupada: "+ this.capacidadOcupada);
        
         ret.resultado = Retorno.Resultado.OK;  
         ret.valorString = "Se retiran "+ cant +" unidades del producto "+ producto.nombre;

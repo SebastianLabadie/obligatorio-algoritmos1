@@ -131,7 +131,6 @@ public class Sistema {
         Retorno r = s.altaDeStockDeProducto("MEC4452", 1, 50, 1000);
         p.ver(r.resultado, Retorno.Resultado.OK, r.valorString);
         
-        System.out.println("sistemaDistribucion.Sistema.pruebasAltaSotck()");
         
         r = s.altaDeStockDeProducto("MEC4452", 8, 70, 1000);
         p.ver(r.resultado, Retorno.Resultado.ERROR_2, r.valorString);
@@ -187,7 +186,6 @@ public class Sistema {
         r=s.retiroDeProducto("MEC4452", "111", 1, 600);
         p.ver(r.resultado, Retorno.Resultado.OK, r.valorString);
         
-        System.out.println("sistemaDistribucion.Sistema.pruebasRetiroDeProducto()");
 
         r=s.retiroDeProducto("OOO1111", "222", 2, 2000);
         p.ver(r.resultado, Retorno.Resultado.OK, r.valorString);
